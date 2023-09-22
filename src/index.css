@@ -4,25 +4,28 @@
 
 body {
     margin: 0;
-    background-color: #003107;
+    background-color: #0090f0;
     padding: 20px;
     font-family: "Karla", sans-serif;
 }
 
 main {
-    background-color: #c2c2c2;
+    background-color: #ececec;
     height: 400px;
     max-width: 800px;
     border-radius: 5px;
+    box-shadow: 0 0 20px black;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: auto auto;
+    position: relative;
 }
 
 .title {
+    color: #0090f0;
     font-size: 5em;
     margin: 0;
     text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
@@ -38,6 +41,7 @@ main {
     font-weight: 400;
     margin-top: 0;
     text-align: center;
+    width: 50%;
 }
 
 .dice-container {
@@ -67,7 +71,7 @@ main {
     width: 100px;
     border: none;
     border-radius: 6px;
-    background-color: #5035ff;
+    background-color: #0090f0;
     color: white;
     font-size: 1.2rem;
     font-family: "Karla", sans-serif;
@@ -80,4 +84,55 @@ main {
 
 .roll-dice:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.stopwatch {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.scoretable {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.scoretable--header {
+    margin: 0;
+    padding: 0;
+}
+
+.scoretable--score {
+    margin: 0;
+    padding: 0;
+}
+
+.winPopup {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.winpopup--content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.winpopup--text {
+    font-size: 5rem;
+    color: white;
+}
+
+.winpopup--time {
+    font-size: 3rem;
+    color: white;
 }

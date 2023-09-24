@@ -1,12 +1,12 @@
 import React from "react";
 
 interface Props {
-    score: (time: number) => void;
+    scoreUpdate: (time: number) => void;
     running: boolean;
     tenzies: boolean;
 }
 
-const Stopwatch: React.FC<Props> = ({ score, running, tenzies }) => {
+const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, tenzies }) => {
     const [time, setTime] = React.useState(0);
 
     React.useEffect(() => {
@@ -22,7 +22,7 @@ const Stopwatch: React.FC<Props> = ({ score, running, tenzies }) => {
     }, [running]);
 
     React.useEffect(() => {
-        if (tenzies) score(time);
+        if (tenzies) scoreUpdate(time);
         setTime(0);
     }, [tenzies]);
 

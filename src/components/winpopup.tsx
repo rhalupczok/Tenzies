@@ -1,38 +1,41 @@
 import React from "react";
+
 interface Props {
-    score: number[];
+    result: {
+        name: string;
+        score: { time: number; fouls: number };
+        win: boolean;
+    };
 }
 const WinPopup: React.FC<Props> = (props) => {
-    console.log(props.score);
     return (
         <div className="winpopup--content">
-            <h1 className="winpopup--text">SUCCESS!</h1>
+            <h1 className="winpopup--text">SUCCESS {props.result.name}!</h1>
             <h2 className="winpopup--time">
                 Your time is:{" "}
                 <span>
                     {(
-                        "0" +
-                        Math.floor(
-                            (props.score[props.score.length - 1] / 60000) % 60
-                        )
+                        "0" + Math.floor((props.result.score.time / 60000) % 60)
                     ).slice(-2)}
                     :
                 </span>
                 <span>
                     {(
-                        "0" +
-                        Math.floor(
-                            (props.score[props.score.length - 1] / 1000) % 60
-                        )
+                        "0" + Math.floor((props.result.score.time / 1000) % 60)
                     ).slice(-2)}
                     :
                 </span>
                 <span>
-                    {(
-                        "0" +
-                        ((props.score[props.score.length - 1] / 10) % 100)
-                    ).slice(-2)}
+                    {("0" + ((props.result.score.time / 10) % 100)).slice(-2)}
                 </span>{" "}
+            </h2>
+            <h2 className="winpopup--fouls">
+                Missed dices:{" "}
+                <span>
+                    {props.result.score.fouls === 0
+                        ? "Any! You're smart!"
+                        : props.result.score.fouls}
+                </span>
             </h2>
         </div>
     );

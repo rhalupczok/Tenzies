@@ -4,14 +4,17 @@
 
 body {
     margin: 0;
+    padding: 0;
     background-color: #0090f0;
     padding: 20px;
     font-family: "Karla", sans-serif;
+    width: 100vw;
+    height: 100vh;
 }
 
 main {
     background-color: #ececec;
-    height: 400px;
+    min-height: 400px;
     max-width: 800px;
     border-radius: 5px;
     box-shadow: 0 0 20px black;
@@ -22,6 +25,21 @@ main {
     align-items: center;
     margin: auto auto;
     position: relative;
+}
+
+.missed-dice {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    transform: scale(0);
+    color: #0090f0;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.show {
+    transition: all 1s;
+    transform: scale(1);
 }
 
 .title {
@@ -67,8 +85,8 @@ main {
 }
 
 .roll-dice {
-    height: 50px;
-    width: 100px;
+    height: 100px;
+    width: 200px;
     border: none;
     border-radius: 6px;
     background-color: #0090f0;
@@ -83,7 +101,26 @@ main {
 }
 
 .roll-dice:active {
-    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.9);
+}
+
+.start-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.user-name--container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border-radius: 5px;
 }
 
 .stopwatch {
@@ -93,9 +130,10 @@ main {
 }
 
 .scoretable {
-    position: absolute;
+    margin-top: 3rem;
+    /* position: absolute;
     top: 5px;
-    right: 5px;
+    right: 5px; */
 }
 
 .scoretable--header {
@@ -110,13 +148,14 @@ main {
 
 .winPopup {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1;
 }
 
 .winpopup--content {
@@ -128,11 +167,15 @@ main {
 }
 
 .winpopup--text {
-    font-size: 5rem;
+    font-size: 2rem;
+    color: white;
+}
+.winpopup--fouls {
+    font-size: 1rem;
     color: white;
 }
 
 .winpopup--time {
-    font-size: 3rem;
+    font-size: 2rem;
     color: white;
 }

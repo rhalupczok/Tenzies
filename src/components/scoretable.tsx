@@ -1,26 +1,52 @@
 import React from "react";
 
 interface Props {
-    scores: number[];
+    result: {
+        name: string;
+        score: { time: number; fouls: number };
+        win: boolean;
+    };
 }
-
 const Scoretable: React.FC<Props> = (props) => {
-    function compareNumbers(a: number, b: number) {
-        return a - b;
-    }
-    const scoreSort = props.scores.sort(compareNumbers);
-    if (scoreSort.length > 10) scoreSort.pop();
-    const scoreElements = scoreSort.map((score, index) => {
+    const [scores, setScores] = React.useState<
+        { name: string; time: number; fouls: number }[]
+    >([]);
+    React.useEffect(() => {
+        if (props.result.win === true && props.result.score.time !== 0) {
+            setScores((prevState) => [
+                ...prevState,
+                {
+                    name: props.result.name,
+                    time: props.result.score.time,
+                    fouls: props.result.score.fouls,
+                },
+            ]);
+        }
+    }, [props.result.score.time]);
+
+    const sortedScore = scores.sort((a, b) => a.time - b.time);
+
+    if (sortedScore.length > 5) sortedScore.pop();
+    const scoreElements = sortedScore.map((singleScore, index) => {
         return (
-            <div key={score} className="scoretable--score">
-                {index + 1}.{" "}
+            <div key={singleScore.time} className="scoretable--score">
                 <span>
-                    {("0" + Math.floor((score / 60000) % 60)).slice(-2)}:
+                    {index + 1}. {singleScore.name}{" "}
                 </span>
                 <span>
-                    {("0" + Math.floor((score / 1000) % 60)).slice(-2)}:
+                    {("0" + Math.floor((singleScore.time / 60000) % 60)).slice(
+                        -2
+                    )}
+                    :
                 </span>
-                <span>{("0" + ((score / 10) % 100)).slice(-2)}</span>
+                <span>
+                    {("0" + Math.floor((singleScore.time / 1000) % 60)).slice(
+                        -2
+                    )}
+                    :
+                </span>
+                <span>{("0" + ((singleScore.time / 10) % 100)).slice(-2)}</span>{" "}
+                <span>{`Miss: ${singleScore.fouls}`}</span>
             </div>
         );
     });

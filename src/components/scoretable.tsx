@@ -11,23 +11,37 @@ const Scoretable: React.FC<Props> = (props) => {
     const [scores, setScores] = React.useState<
         { name: string; time: number; fouls: number }[]
     >([]);
+
+    React.useEffect(() => {
+        console.log("first_download_from_localStorage");
+        const storedData:
+            | { name: string; time: number; fouls: number }[]
+            | null =
+            localStorage.getItem("tenziesScores") !== null
+                ? JSON.parse(localStorage.getItem("tenziesScores") as string)
+                : null;
+        setScores((prevState) => (storedData ? storedData : prevState));
+    }, []);
+
     React.useEffect(() => {
         if (props.result.win === true && props.result.score.time !== 0) {
-            setScores((prevState) => [
-                ...prevState,
+            const newScoresArr = [
+                ...scores,
                 {
                     name: props.result.name,
                     time: props.result.score.time,
                     fouls: props.result.score.fouls,
                 },
-            ]);
+            ];
+            const sortedScores = newScoresArr
+                .sort((a, b) => a.time - b.time)
+                .slice(0, 5);
+            setScores(sortedScores);
+            localStorage.setItem("tenziesScores", JSON.stringify(sortedScores));
         }
     }, [props.result.score.time]);
 
-    const sortedScore = scores.sort((a, b) => a.time - b.time);
-
-    if (sortedScore.length > 5) sortedScore.pop();
-    const scoreElements = sortedScore.map((singleScore, index) => {
+    const scoreElements = scores.map((singleScore, index) => {
         return (
             <div key={singleScore.time} className="scoretable--score">
                 <span>

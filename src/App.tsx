@@ -94,7 +94,6 @@ export default function App() {
     ));
 
     const scoreUpdate = (time: number) => {
-        // console.log("scoreUpdate 2");
         setPlayer((prevState) => ({
             ...prevState,
             score: {
@@ -103,14 +102,24 @@ export default function App() {
             },
         }));
     };
-    console.log(player.score);
 
     const missedDice = () => {
-        const text = document.querySelector(".missed-dice");
-        if (text) text.classList.toggle("show");
+        const text = document.querySelector(".title");
+        const body = document.querySelector("body");
+        console.log(text, body);
+
+        if (text && body) {
+            text.innerHTML = "MISS!!";
+            text.classList.add("missed-dice-text");
+            body.classList.add("missed-dice-bg");
+        }
         setTimeout(() => {
-            if (text) text.classList.toggle("show");
-        }, 1000);
+            if (text && body) {
+                text.innerHTML = "TENZI";
+                text.classList.remove("missed-dice-text");
+                body.classList.remove("missed-dice-bg");
+            }
+        }, 500);
     };
 
     const onChange = (event: { target: { value: string } }) => {
@@ -131,6 +140,7 @@ export default function App() {
                         className="user-name--input"
                         value={player.name}
                         onChange={onChange}
+                        maxLength={10}
                     />
                     <button
                         className="roll-dice"
@@ -145,7 +155,6 @@ export default function App() {
                     </button>
                 </div>
             )}
-            <div className="missed-dice">MISSED!!!</div>
             {player.win && <Confetti />}
             {player.win && (
                 <div className="winPopup">

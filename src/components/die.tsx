@@ -9,7 +9,8 @@ interface DieProps {
 
 export default function Die(props: DieProps) {
     const styles = {
-        backgroundColor: props.isHeld ? "#59E391" : "white",
+        backgroundColor: props.isHeld ? "#0090f0" : "white",
+        color: props.isHeld ? "white" : "black",
     };
     return (
         <div className="die-face" style={styles} onClick={props.holdDice}>

@@ -27,21 +27,6 @@ main {
     position: relative;
 }
 
-.missed-dice {
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
-    transform: scale(0);
-    color: #0090f0;
-    font-size: 1em;
-    font-weight: 700;
-}
-
-.show {
-    transition: all 1s;
-    transform: scale(1);
-}
-
 .title {
     color: #0090f0;
     font-size: 5em;
@@ -123,6 +108,17 @@ main {
     border-radius: 5px;
 }
 
+#user {
+    width: 170px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: italic;
+    background-color: #94d4ff;
+    margin-bottom: 50px;
+    padding: 5px;
+    border-radius: 0.5rem;
+}
+
 .stopwatch {
     position: absolute;
     top: 5px;
@@ -131,9 +127,11 @@ main {
 
 .scoretable {
     margin-top: 3rem;
-    /* position: absolute;
-    top: 5px;
-    right: 5px; */
+    padding: 1rem;
+    border: 2px solid #0090f0;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px #0090f0;
+    background-color: #b3b3b3;
 }
 
 .scoretable--header {
@@ -178,4 +176,12 @@ main {
 .winpopup--time {
     font-size: 2rem;
     color: white;
+}
+
+.missed-dice-text {
+    color: red;
+}
+
+.missed-dice-bg {
+    background-color: red;
 }

@@ -3,12 +3,13 @@ import React from "react";
 interface Props {
     scoreUpdate: (time: number) => void;
     running: boolean;
-    tenzies: boolean;
+    winFlag: boolean;
 }
 
-const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, tenzies }) => {
+const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, winFlag }) => {
     const [time, setTime] = React.useState(0);
 
+    //stopWatch logic
     React.useEffect(() => {
         let interval: NodeJS.Timeout | undefined;
         if (running) {
@@ -21,10 +22,11 @@ const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, tenzies }) => {
         return () => clearInterval(interval);
     }, [running]);
 
+    //passing the time to result object in App.tsx as argument in props scoreUpdate function.
     React.useEffect(() => {
-        if (tenzies) scoreUpdate(time);
+        if (winFlag) scoreUpdate(time);
         setTime(0);
-    }, [tenzies]);
+    }, [winFlag]);
 
     return (
         <div className="stopwatch">

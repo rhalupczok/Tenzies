@@ -12,8 +12,8 @@ const Scoretable: React.FC<Props> = (props) => {
         { name: string; time: number; fouls: number }[]
     >([]);
 
+    //download results from local storage (if any) and update the score array
     React.useEffect(() => {
-        console.log("first_download_from_localStorage");
         const storedData:
             | { name: string; time: number; fouls: number }[]
             | null =
@@ -23,6 +23,7 @@ const Scoretable: React.FC<Props> = (props) => {
         setScores((prevState) => (storedData ? storedData : prevState));
     }, []);
 
+    //update the score array and localstorage item when player win. The score array is always cut to 5 best scores
     React.useEffect(() => {
         if (props.result.win === true && props.result.score.time !== 0) {
             const newScoresArr = [
@@ -41,6 +42,7 @@ const Scoretable: React.FC<Props> = (props) => {
         }
     }, [props.result.score.time]);
 
+    //JSX array of results
     const scoreElements = scores.map((singleScore, index) => {
         return (
             <div key={singleScore.time} className="scoretable--score">

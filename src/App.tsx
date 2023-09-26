@@ -7,9 +7,15 @@ import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 
 export default function App() {
-    const [dice, setDice] = React.useState(allNewDice());
-    const [play, setPlay] = React.useState(false);
-    const [running, setRunning] = React.useState(false);
+    const [dice, setDice] = React.useState<
+        {
+            value: number;
+            isHeld: boolean;
+            id: string;
+        }[]
+    >(allNewDice());
+    const [play, setPlay] = React.useState<boolean>(false);
+    const [running, setRunning] = React.useState<boolean>(false);
     const [player, setPlayer] = React.useState<{
         name: string;
         changeName: boolean;
@@ -22,18 +28,30 @@ export default function App() {
         win: false,
     });
 
+    //checking results after each change in dice object & win conditions
     React.useEffect(() => {
         const allHeld: Boolean = dice.every((die) => die.isHeld);
         const firstValue: number | string = dice[0].value;
         const allValues = dice.every((die) => die.value === firstValue);
         if (allHeld && allValues) {
-            console.log("YOU WON");
             setPlayer((prevState) => ({ ...prevState, win: true }));
             setRunning(false);
             setPlay(false);
         }
     }, [dice]);
 
+    //download user name from localstorage (if any)
+    React.useEffect(() => {
+        const userName: string | null =
+            localStorage.getItem("tenziesUserName") !== null
+                ? JSON.parse(localStorage.getItem("tenziesUserName") as string)
+                : null;
+        setPlayer((prevState) =>
+            userName ? { ...prevState, name: userName } : prevState
+        );
+    }, []);
+
+    //create new single die
     function generateNewDie() {
         return {
             value: Math.ceil(Math.random() * 6),
@@ -42,6 +60,7 @@ export default function App() {
         };
     }
 
+    //create all new dice arrray
     function allNewDice() {
         const newDice = [];
         for (let i = 0; i < 10; i++) {
@@ -50,6 +69,7 @@ export default function App() {
         return newDice;
     }
 
+    //rolldice button effect - create new die which are not held by player, checking if any die is missed and adding possibly foul to player score
     function rollDice() {
         const heldNumber = dice.find((die) => die.isHeld === true);
         dice.forEach((die) => {
@@ -76,6 +96,7 @@ export default function App() {
         }
     }
 
+    //setting hold property in die object
     function holdDice(id: string) {
         setDice((oldDice) =>
             oldDice.map((die) => {
@@ -84,6 +105,7 @@ export default function App() {
         );
     }
 
+    //creating single Die by passing props to Die component - the diceElements Arr is displayed
     const diceElements = dice.map((die) => (
         <Die
             key={die.id}
@@ -93,6 +115,7 @@ export default function App() {
         />
     ));
 
+    //when finish the score (time) is updated by passing value from stopWatch component
     const scoreUpdate = (time: number) => {
         setPlayer((prevState) => ({
             ...prevState,
@@ -103,10 +126,10 @@ export default function App() {
         }));
     };
 
+    //visual effect when player miss the dice - red background and change title word for a 0,5s
     const missedDice = () => {
         const text = document.querySelector(".title");
         const body = document.querySelector("body");
-        console.log(text, body);
 
         if (text && body) {
             text.innerHTML = "MISS!!";
@@ -122,6 +145,7 @@ export default function App() {
         }, 500);
     };
 
+    //catching player name from input area
     const onChange = (event: { target: { value: string } }) => {
         setPlayer((prevState) => ({
             ...prevState,
@@ -131,36 +155,47 @@ export default function App() {
 
     return (
         <main>
-            {player.changeName && (
-                <div className="user-name--container">
-                    <input
-                        type="text"
-                        id="user"
-                        placeholder={player.name}
-                        className="user-name--input"
-                        value={player.name}
-                        onChange={onChange}
-                        maxLength={10}
-                    />
-                    <button
-                        className="roll-dice"
-                        onClick={() => {
-                            setPlayer((prevState) => ({
-                                ...prevState,
-                                changeName: false,
-                            }));
-                        }}
-                    >
-                        Apply
-                    </button>
-                </div>
-            )}
-            {player.win && <Confetti />}
+            {
+                //user name container display when changeName property of player object is true - state is changed by "Enter name" and apply buttons
+                player.changeName && (
+                    <div className="user-name--container">
+                        <input
+                            type="text"
+                            id="user"
+                            placeholder={player.name}
+                            className="user-name--input"
+                            value={player.name}
+                            onChange={onChange}
+                            maxLength={10}
+                        />
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                setPlayer((prevState) => ({
+                                    ...prevState,
+                                    changeName: false,
+                                }));
+                                //passing user name to localStorage
+                                localStorage.setItem(
+                                    "tenziesUserName",
+                                    JSON.stringify(player.name)
+                                );
+                            }}
+                        >
+                            Apply
+                        </button>
+                    </div>
+                )
+            }
+            {
+                //display confetti and winPopup container when player win (property win is changed in first useEffect on the top of App.tsx)
+                player.win && <Confetti />
+            }
             {player.win && (
                 <div className="winPopup">
                     <WinPopup result={player} />
                     <button
-                        className="roll-dice"
+                        className="btn"
                         onClick={() => {
                             setDice(allNewDice);
                             setPlayer((prevState) => ({
@@ -181,7 +216,7 @@ export default function App() {
             <Stopwatch
                 scoreUpdate={(time: number) => scoreUpdate(time)}
                 running={running}
-                tenzies={player.win}
+                winFlag={player.win}
             />
 
             <p className="instructions">
@@ -190,13 +225,13 @@ export default function App() {
             </p>
             {play && <div className="dice-container">{diceElements}</div>}
             {play ? (
-                <button className="roll-dice" onClick={rollDice}>
+                <button className="btn" onClick={rollDice}>
                     Roll
                 </button>
             ) : (
                 <div className="start-buttons">
                     <button
-                        className="roll-dice"
+                        className="btn"
                         onClick={() => {
                             setPlayer((prevState) => ({
                                 ...prevState,
@@ -207,7 +242,7 @@ export default function App() {
                         Enter Name
                     </button>
                     <button
-                        className="roll-dice"
+                        className="btn"
                         onClick={() => {
                             allNewDice();
                             setPlay(true);

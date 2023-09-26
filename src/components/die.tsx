@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DieProps {
     key: string;
     value: number | string;

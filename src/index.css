@@ -47,6 +47,38 @@ main {
     width: 50%;
 }
 
+.style-selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.style-selection--header {
+    margin: 0;
+}
+
+.style-selection--buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 20px 0;
+}
+
+.style-selection--imgBtn {
+    width: 200px;
+    border-radius: 0.3rem;
+    border: 5px solid grey;
+    cursor: pointer;
+}
+
+.style-selection--imgBtn:hover {
+    transform: scale(1.1);
+    border: 5px solid #0090f0;
+}
+
 .dice-container {
     display: grid;
     grid-template: auto auto / repeat(5, 1fr);

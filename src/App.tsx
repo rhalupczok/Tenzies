@@ -21,11 +21,13 @@ export default function App() {
         changeName: boolean;
         score: { time: number; fouls: number };
         win: boolean;
+        selectedDiceStyle: number;
     }>({
         name: "Player",
         changeName: false,
         score: { time: 0, fouls: 0 },
         win: false,
+        selectedDiceStyle: 0, //style: 0 -> numbers, style: 1 -> dots
     });
 
     //checking results after each change in dice object & win conditions
@@ -111,6 +113,7 @@ export default function App() {
             key={die.id}
             value={die.value}
             isHeld={die.isHeld}
+            style={player.selectedDiceStyle}
             holdDice={() => holdDice(die.id)}
         />
     ));
@@ -150,6 +153,18 @@ export default function App() {
         setPlayer((prevState) => ({
             ...prevState,
             name: event.target.value,
+        }));
+    };
+
+    const chosenStyle = {
+        transform: "scale(1.1)",
+        border: "5px solid #0090f0",
+    };
+
+    const setDiceStyle = (style: number) => {
+        setPlayer((prevState) => ({
+            ...prevState,
+            selectedDiceStyle: style,
         }));
     };
 
@@ -224,6 +239,37 @@ export default function App() {
                 counted!
             </p>
             {play && <div className="dice-container">{diceElements}</div>}
+            {!play && (
+                <div className="style-selection">
+                    <h3 className="style-selection--header">
+                        Select dice style:
+                    </h3>
+                    <div className="style-selection--buttons">
+                        <img
+                            src={require("./images/dice_numbers.png")}
+                            alt="dice_numbers"
+                            className="style-selection--imgBtn"
+                            style={
+                                !player.selectedDiceStyle
+                                    ? chosenStyle
+                                    : undefined
+                            }
+                            onClick={() => setDiceStyle(0)}
+                        />
+                        <img
+                            src={require("./images/dice_symbols.png")}
+                            alt="dice_symbols"
+                            className="style-selection--imgBtn"
+                            style={
+                                player.selectedDiceStyle
+                                    ? chosenStyle
+                                    : undefined
+                            }
+                            onClick={() => setDiceStyle(1)}
+                        />
+                    </div>
+                </div>
+            )}
             {play ? (
                 <button className="btn" onClick={rollDice}>
                     Roll

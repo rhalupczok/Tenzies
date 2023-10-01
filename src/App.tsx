@@ -1,6 +1,7 @@
 import React from "react";
 import Die from "./components/die";
 import Stopwatch from "./components/stopwatch";
+import StyleSelection from "./components/styleselection";
 import Scoretable from "./components/scoretable";
 import WinPopup from "./components/winpopup";
 import { nanoid } from "nanoid";
@@ -156,11 +157,7 @@ export default function App() {
         }));
     };
 
-    const chosenStyle = {
-        transform: "scale(1.1)",
-        border: "5px solid #0090f0",
-    };
-
+    // setting the dice style - passed as props to StyleSelection component
     const setDiceStyle = (style: number) => {
         setPlayer((prevState) => ({
             ...prevState,
@@ -202,12 +199,11 @@ export default function App() {
                     </div>
                 )
             }
-            {
-                //display confetti and winPopup container when player win (property win is changed in first useEffect on the top of App.tsx)
-                player.win && <Confetti />
-            }
+
             {player.win && (
+                //display confetti and winPopup container when player win (property win is changed in first useEffect on the top of App.tsx)
                 <div className="winPopup">
+                    <Confetti />
                     <WinPopup result={player} />
                     <button
                         className="btn"
@@ -233,49 +229,23 @@ export default function App() {
                 running={running}
                 winFlag={player.win}
             />
-
             <p className="instructions">
                 Roll until all dice are the same. Hurry up, the time is being
                 counted!
             </p>
-            {play && <div className="dice-container">{diceElements}</div>}
-            {!play && (
-                <div className="style-selection">
-                    <h3 className="style-selection--header">
-                        Select dice style:
-                    </h3>
-                    <div className="style-selection--buttons">
-                        <img
-                            src={require("./images/dice_numbers.png")}
-                            alt="dice_numbers"
-                            className="style-selection--imgBtn"
-                            style={
-                                !player.selectedDiceStyle
-                                    ? chosenStyle
-                                    : undefined
-                            }
-                            onClick={() => setDiceStyle(0)}
-                        />
-                        <img
-                            src={require("./images/dice_symbols.png")}
-                            alt="dice_symbols"
-                            className="style-selection--imgBtn"
-                            style={
-                                player.selectedDiceStyle
-                                    ? chosenStyle
-                                    : undefined
-                            }
-                            onClick={() => setDiceStyle(1)}
-                        />
-                    </div>
-                </div>
-            )}
             {play ? (
-                <button className="btn" onClick={rollDice}>
-                    Roll
-                </button>
+                <div className="gameWindow">
+                    <div className="dice-container">{diceElements}</div>
+                    <button className="btn" onClick={rollDice}>
+                        Roll
+                    </button>
+                </div>
             ) : (
-                <div className="start-buttons">
+                <div className="menuWindow">
+                    <StyleSelection
+                        selectedDiceStyle={player.selectedDiceStyle}
+                        setDiceStyle={(style: number) => setDiceStyle(style)}
+                    />
                     <button
                         className="btn"
                         onClick={() => {

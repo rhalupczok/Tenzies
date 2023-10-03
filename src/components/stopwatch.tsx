@@ -30,14 +30,18 @@ const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, winFlag }) => {
 
     return (
         <div className="stopwatch">
-            <div className="numbers">
-                <span>Your time is: </span>
-                <span>
-                    {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
-                </span>
-                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
-            </div>
+            {running && (
+                <div className="numbers">
+                    <span>Your time is: </span>
+                    <span>
+                        {("0" + Math.floor((time / 60000) % 60)).slice(-2)}:
+                    </span>
+                    <span>
+                        {("0" + Math.floor((time / 1000) % 60)).slice(-2)}:
+                    </span>
+                    <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+                </div>
+            )}
         </div>
     );
 };

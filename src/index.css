@@ -112,7 +112,7 @@ main {
 }
 
 .btn {
-    height: 100px;
+    height: 60px;
     width: 200px;
     border: none;
     border-radius: 6px;
@@ -121,6 +121,10 @@ main {
     font-size: 1.2rem;
     font-family: "Karla", sans-serif;
     cursor: pointer;
+}
+
+.btn:hover {
+    box-shadow: 0 0 10px #0090f0;
 }
 
 .roll-dice:focus {
@@ -153,6 +157,12 @@ main {
     z-index: 2;
 }
 
+.current-name-btn {
+    font-size: 0.8rem;
+    color: black;
+    font-style: italic;
+}
+
 #user {
     width: 170px;
     font-size: 1.5rem;
@@ -178,7 +188,7 @@ main {
 
 .scoretable {
     margin-top: 2rem;
-    padding: 1rem;
+    padding: 0.2rem 1rem;
     border: 2px solid #0090f0;
     border-radius: 1rem;
     box-shadow: 0 0 10px #0090f0;
@@ -186,18 +196,22 @@ main {
 }
 
 .scoretable--header {
-    margin: 0;
+    margin: 0 0 0.2rem 0;
     padding: 0;
+    color: #0090f0;
+    font-style: italic;
+    text-shadow: 0 0 1px black;
 }
 
 .scoretable--scores-container {
     max-height: 95px;
     overflow: auto;
+    border-radius: 0.2rem;
 }
 
 .scoretable--score {
     margin: 0;
-    padding: 0;
+    padding: 0 0.3rem;
 }
 
 .winPopup {
@@ -247,4 +261,27 @@ main {
         flex-direction: column;
         row-gap: 1rem;
     }
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #0090f0;
+    border-radius: 0.2rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0060f0;
+    border-radius: 0.2rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #339dff;
 }

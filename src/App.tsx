@@ -6,6 +6,7 @@ import Scoretable from "./components/scoretable";
 import WinPopup from "./components/winpopup";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
+import randomFirstNames from "./data/firstNamesData";
 
 export default function App() {
     const [dice, setDice] = React.useState<
@@ -24,7 +25,7 @@ export default function App() {
         win: boolean;
         selectedDiceStyle: number;
     }>({
-        name: "Player",
+        name: randomFirstNames[Math.floor(Math.random() * 25)],
         changeName: false,
         score: { time: 0, fouls: 0 },
         win: false,
@@ -43,7 +44,7 @@ export default function App() {
         }
     }, [dice]);
 
-    //download user name from localstorage (if any)
+    //download and applying user name from localstorage (if any)
     React.useEffect(() => {
         const userName: string | null =
             localStorage.getItem("tenziesUserName") !== null
@@ -63,7 +64,7 @@ export default function App() {
         };
     }
 
-    //create all new dice arrray
+    //create new dice array
     function allNewDice() {
         const newDice = [];
         for (let i = 0; i < 10; i++) {
@@ -84,11 +85,12 @@ export default function App() {
                         fouls: prevState.score.fouls + 1,
                     },
                 }));
-                missedDice();
+                missedDice(); //visual effect of missed dice
             }
         });
 
         if (!player.win) {
+            //if winning condition is not met, generate new die if not held
             setDice((oldDice) =>
                 oldDice.map((die) => {
                     return die.isHeld ? die : generateNewDie();
@@ -99,11 +101,11 @@ export default function App() {
         }
     }
 
-    //setting hold property in die object
+    //setting hold property in die object based on id of clicked dice
     function holdDice(id: string) {
         setDice((oldDice) =>
             oldDice.map((die) => {
-                return die.id === id ? { ...die, isHeld: !die.isHeld } : die;
+                return die.id === id ? { ...die, isHeld: !die.isHeld } : die; //map by all dice, if id of clicked dice is matching then toogle the isHeld property, else do nothing.
             })
         );
     }
@@ -233,7 +235,7 @@ export default function App() {
                 Roll until all dice are the same. Hurry up, the time is being
                 counted!
             </p>
-            {play ? (
+            {play ? ( // the play boolean value toggle screen betwen main menu and game view.
                 <div className="gameWindow">
                     <div className="dice-container">{diceElements}</div>
                     <button className="btn" onClick={rollDice}>
@@ -255,7 +257,8 @@ export default function App() {
                             }));
                         }}
                     >
-                        Enter Name
+                        Change Name
+                        <p className="current-name-btn">{`Your current name: ${player.name}`}</p>
                     </button>
                     <button
                         className="btn"

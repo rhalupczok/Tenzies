@@ -104,7 +104,7 @@ const Scoretable: React.FC<Props> = (props) => {
             <div
                 key={nanoid()}
                 className="scoretable--score"
-                style={index % 2 === 0 ? style.style1 : style.style2} //changing the background shadow for better separate particular result
+                style={index % 2 === 0 ? style.style1 : style.style2} //particular row backround
             >
                 <span>
                     {index + 1}. {singleScore.name}{" "}

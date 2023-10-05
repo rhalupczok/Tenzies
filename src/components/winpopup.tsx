@@ -1,11 +1,8 @@
 import React from "react";
+import { player } from "../data/interfaces";
 
 interface Props {
-    result: {
-        name: string;
-        score: { time: number; fouls: number };
-        win: boolean;
-    };
+    result: player;
 }
 const WinPopup: React.FC<Props> = (props) => {
     return (

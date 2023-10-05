@@ -2,21 +2,17 @@ import React from "react";
 import { setDoc, doc, onSnapshot } from "firebase/firestore";
 import { globalScores, db } from "../firebase";
 import { nanoid } from "nanoid";
+import { player, scoresArr } from "../data/interfaces";
 
 interface Props {
-    result: {
-        name: string;
-        score: { time: number; fouls: number };
-        win: boolean;
-    };
+    result: player;
 }
+
 const Scoretable: React.FC<Props> = (props) => {
-    const [localScoresArr, setLocalScoresArr] = React.useState<
-        { name: string; time: number; fouls: number }[]
-    >([]);
-    const [globalScoresArr, setGlobalScoresArr] = React.useState<
-        { name: string; time: number; fouls: number }[]
-    >([]);
+    const [localScoresArr, setLocalScoresArr] = React.useState<scoresArr[]>([]);
+    const [globalScoresArr, setGlobalScoresArr] = React.useState<scoresArr[]>(
+        []
+    );
 
     const style = {
         //dynamic styling for each score row
@@ -106,9 +102,8 @@ const Scoretable: React.FC<Props> = (props) => {
                 className="scoretable--score"
                 style={index % 2 === 0 ? style.style1 : style.style2} //particular row backround
             >
-                <span>
-                    {index + 1}. {singleScore.name}{" "}
-                </span>
+                <span>{index + 1}. </span>
+                <span className="scoretable--name">{singleScore.name} </span>
                 <span>
                     {("0" + Math.floor((singleScore.time / 60000) % 60)).slice(
                         -2
@@ -134,9 +129,8 @@ const Scoretable: React.FC<Props> = (props) => {
                 className="scoretable--score"
                 style={index % 2 === 0 ? style.style1 : style.style2}
             >
-                <span>
-                    {index + 1}. {singleScore.name}{" "}
-                </span>
+                <span>{index + 1}. </span>
+                <span className="scoretable--name">{singleScore.name} </span>
                 <span>
                     {("0" + Math.floor((singleScore.time / 60000) % 60)).slice(
                         -2

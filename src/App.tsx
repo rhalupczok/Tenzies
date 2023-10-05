@@ -7,24 +7,13 @@ import WinPopup from "./components/winpopup";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 import randomFirstNames from "./data/firstNamesData";
+import { dice, player } from "./data/interfaces";
 
 export default function App() {
-    const [dice, setDice] = React.useState<
-        {
-            value: number;
-            isHeld: boolean;
-            id: string;
-        }[]
-    >(allNewDice());
+    const [dice, setDice] = React.useState<dice[]>(allNewDice());
     const [play, setPlay] = React.useState<boolean>(false);
     const [running, setRunning] = React.useState<boolean>(false);
-    const [player, setPlayer] = React.useState<{
-        name: string;
-        changeName: boolean;
-        score: { time: number; fouls: number };
-        win: boolean;
-        selectedDiceStyle: number;
-    }>({
+    const [player, setPlayer] = React.useState<player>({
         name: randomFirstNames[Math.floor(Math.random() * 25)],
         changeName: false,
         score: { time: 0, fouls: 0 },
@@ -53,6 +42,8 @@ export default function App() {
         setPlayer((prevState) =>
             userName ? { ...prevState, name: userName } : prevState
         );
+        window.addEventListener("keydown", handleKeyUp); //turns on listener for roll dice by key "space"
+        return () => window.removeEventListener("keydown", handleKeyUp); //
     }, []);
 
     //create new single die
@@ -74,10 +65,13 @@ export default function App() {
     }
 
     //rolldice button effect - create new die which are not held by player, checking if any die is missed and adding possibly foul to player score
-    function rollDice() {
+    const rollDice = () => {
+        console.log("ddddddddddd");
         const heldNumber = dice.find((die) => die.isHeld === true);
+        console.log(heldNumber, dice);
         dice.forEach((die) => {
             if (die.isHeld === false && die.value === heldNumber?.value) {
+                console.log("blad");
                 setPlayer((prevState) => ({
                     ...prevState,
                     score: {
@@ -99,7 +93,16 @@ export default function App() {
         } else {
             setDice(allNewDice);
         }
-    }
+    };
+
+    //roll the dice by space key
+    const handleKeyUp = (e: KeyboardEvent) => {
+        if (e.code === "Space") {
+            e.stopPropagation();
+            e.preventDefault();
+            rollDice();
+        }
+    };
 
     //setting hold property in die object based on id of clicked dice
     function holdDice(id: string) {
@@ -238,7 +241,7 @@ export default function App() {
             {play ? ( // the play boolean value toggle screen betwen main menu and game view.
                 <div className="gameWindow">
                     <div className="dice-container">{diceElements}</div>
-                    <button className="btn" onClick={rollDice}>
+                    <button id="roll-btn" className="btn" onClick={rollDice}>
                         Roll
                     </button>
                 </div>

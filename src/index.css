@@ -183,12 +183,13 @@ main {
 .scoreTablesContainer {
     display: flex;
     flex-direction: row;
-    column-gap: 1rem;
+    column-gap: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .scoretable {
-    margin-top: 2rem;
-    padding: 0.2rem 1rem;
+    margin-top: 1rem;
+    padding: 0.3rem 0.5rem;
     border: 2px solid #0090f0;
     border-radius: 1rem;
     box-shadow: 0 0 10px #0090f0;
@@ -212,6 +213,12 @@ main {
 .scoretable--score {
     margin: 0;
     padding: 0 0.3rem;
+    display: grid;
+    grid-template-columns: 20px 65px 20px 20px 25px 50px;
+}
+
+.scoretable--name {
+    word-break: break-all;
 }
 
 .winPopup {
@@ -259,7 +266,6 @@ main {
 @media screen and (max-width: 600px) {
     .scoreTablesContainer {
         flex-direction: column;
-        row-gap: 1rem;
     }
 }
 

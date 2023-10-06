@@ -94,6 +94,16 @@ const Scoretable: React.FC<Props> = (props) => {
         }
     }, [props.result.score.time]);
 
+    function timeFormatter(time: number) {
+        const timeFormat =
+            ("0" + Math.floor((time / 60000) % 60)).slice(-2) +
+            ":" +
+            ("0" + Math.floor((time / 1000) % 60)).slice(-2) +
+            ":" +
+            ("0" + ((time / 10) % 100)).slice(-2);
+        return timeFormat;
+    }
+
     //JSX array of results
     const localScoresElements = localScoresArr.map((singleScore, index) => {
         return (
@@ -104,19 +114,7 @@ const Scoretable: React.FC<Props> = (props) => {
             >
                 <span>{index + 1}. </span>
                 <span className="scoretable--name">{singleScore.name} </span>
-                <span>
-                    {("0" + Math.floor((singleScore.time / 60000) % 60)).slice(
-                        -2
-                    )}
-                    :
-                </span>
-                <span>
-                    {("0" + Math.floor((singleScore.time / 1000) % 60)).slice(
-                        -2
-                    )}
-                    :
-                </span>
-                <span>{("0" + ((singleScore.time / 10) % 100)).slice(-2)}</span>{" "}
+                <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
             </div>
         );
@@ -131,19 +129,7 @@ const Scoretable: React.FC<Props> = (props) => {
             >
                 <span>{index + 1}. </span>
                 <span className="scoretable--name">{singleScore.name} </span>
-                <span>
-                    {("0" + Math.floor((singleScore.time / 60000) % 60)).slice(
-                        -2
-                    )}
-                    :
-                </span>
-                <span>
-                    {("0" + Math.floor((singleScore.time / 1000) % 60)).slice(
-                        -2
-                    )}
-                    :
-                </span>
-                <span>{("0" + ((singleScore.time / 10) % 100)).slice(-2)}</span>{" "}
+                <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
             </div>
         );

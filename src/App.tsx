@@ -235,7 +235,8 @@ export default function App() {
                 winFlag={player.win}
             />
             <p className="instructions">
-                Roll until all dice are the same. Hurry up, the time is being
+                Goal is to get all dice the same. Hold dice by click on it. Be
+                careful to do not miss any! <br /> Hurry up, the time is being
                 counted!
             </p>
             {play ? ( // the play boolean value toggle screen betwen main menu and game view.

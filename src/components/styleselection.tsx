@@ -1,10 +1,15 @@
-import React from "react";
+import { FC } from "react";
+import usePlayerInfo from "../hooks/usePlayerInfo";
 
-interface Props {
-    selectedDiceStyle: number;
-    setDiceStyle: (style: number) => void;
-}
-const StyleSelection: React.FC<Props> = (props) => {
+const StyleSelection: FC = () => {
+    const { player, setPlayer } = usePlayerInfo();
+
+    const setDiceStyle = (style: number) => {
+        setPlayer((prevState) => ({
+            ...prevState,
+            selectedDiceStyle: style, //selectedDiceStyle: 0 -> numbers, selectedDiceStyle: 1 -> dots
+        }));
+    };
     const chosenStyle = {
         transform: "scale(1.2)",
         opacity: "1",
@@ -19,15 +24,15 @@ const StyleSelection: React.FC<Props> = (props) => {
                     src={require("../images/dice_numbers.png")}
                     alt="dice_numbers"
                     className="style-selection--imgBtn"
-                    style={!props.selectedDiceStyle ? chosenStyle : undefined}
-                    onClick={() => props.setDiceStyle(0)}
+                    style={!player.selectedDiceStyle ? chosenStyle : undefined}
+                    onClick={() => setDiceStyle(0)}
                 />
                 <img
                     src={require("../images/dice_symbols.png")}
                     alt="dice_symbols"
                     className="style-selection--imgBtn"
-                    style={props.selectedDiceStyle ? chosenStyle : undefined}
-                    onClick={() => props.setDiceStyle(1)}
+                    style={player.selectedDiceStyle ? chosenStyle : undefined}
+                    onClick={() => setDiceStyle(1)}
                 />
             </div>
         </div>

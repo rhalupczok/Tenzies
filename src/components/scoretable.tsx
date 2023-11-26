@@ -1,18 +1,17 @@
-import React from "react";
-import { setDoc, doc, onSnapshot } from "firebase/firestore";
-import { globalScores, db } from "../firebase";
+import { useState, useEffect, FC } from "react";
 import { nanoid } from "nanoid";
-import { player, scoresArr } from "../data/interfaces";
+import { scoresArr } from "../data/interfaces";
+import usePlayerInfo from "../hooks/usePlayerInfo";
+import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-interface Props {
-    result: player;
-}
-
-const Scoretable: React.FC<Props> = (props) => {
-    const [localScoresArr, setLocalScoresArr] = React.useState<scoresArr[]>([]);
-    const [globalScoresArr, setGlobalScoresArr] = React.useState<scoresArr[]>(
-        []
-    );
+const Scoretable: FC = () => {
+    const axiosPrivate = useAxiosPrivate();
+    const SCORES_URL = "/tenziuserscores";
+    const { auth } = useAuth();
+    const { player } = usePlayerInfo();
+    const [userScoresArr, setUserScoresArr] = useState<scoresArr[]>([]);
+    const [scoresArr, setScoresArr] = useState<scoresArr[]>([]);
 
     const style = {
         //dynamic styling for each score row
@@ -20,79 +19,67 @@ const Scoretable: React.FC<Props> = (props) => {
         style2: { backgroundColor: "rgba(0, 0, 0, 0.4)" },
     };
 
-    React.useEffect(() => {
-        //this func enable  monitoring of changes in global database and update globalScoresArr object
-        const unsubscribe = onSnapshot(globalScores, (snapshot) => {
-            const globalScores = snapshot.docs.map((score) => ({
-                ...score.data(),
-            }));
-            const globalScoresArr = Object.values(globalScores[0]);
-            setGlobalScoresArr(globalScoresArr[0]);
-        });
-        return unsubscribe; //stop monitoring when object is closed (avoid memory leak)
-    }, []);
-
-    //download results from local storage (if any) and update the local score array
-    React.useEffect(() => {
-        const storedData:
-            | { name: string; time: number; fouls: number }[]
-            | null =
-            localStorage.getItem("tenziesScores") !== null
-                ? JSON.parse(localStorage.getItem("tenziesScores") as string)
-                : null;
-        setLocalScoresArr((prevState) => (storedData ? storedData : prevState));
-    }, []);
-
-    //update the global score database and localstorage item when player win. The local score array is always cut to 5 best scores
-    //the useeffect is called when the stopWatch is getting result (in player object the current time is changed)
-    React.useEffect(() => {
-        if (props.result.win === true && props.result.score.time !== 0) {
-            const newLocalScoresArr = [
-                //getting all local result and add current result
-                ...localScoresArr,
-                {
-                    name: props.result.name,
-                    time: props.result.score.time,
-                    fouls: props.result.score.fouls,
-                },
-            ];
-            const sortedLocalScores = newLocalScoresArr //sort results array by time value and cut array to 5 scores
-                .sort((a, b) => a.time - b.time)
-                .slice(0, 5);
-            setLocalScoresArr(sortedLocalScores);
-            localStorage.setItem(
-                //update localstorage
-                "tenziesScores",
-                JSON.stringify(sortedLocalScores)
-            );
-
-            if (globalScoresArr) {
-                const newGlobalScoresArr = [
-                    //getting all local result and add current result
-                    ...globalScoresArr,
-                    {
-                        name: props.result.name,
-                        time: props.result.score.time,
-                        fouls: props.result.score.fouls,
-                    },
-                ];
-
-                const sortedGlobalScores = newGlobalScoresArr //sort results array by time value and cut array to 50 scores
-                    .sort((a, b) => a.time - b.time)
-                    .slice(0, 50);
-                const updateGlobalResults = async () => {
-                    //update the globalscore database (firestore)
-                    const resultsRef = doc(db, "tenzi-scores", "tableID");
-                    await setDoc(
-                        resultsRef,
-                        { sortedGlobalScores },
-                        { merge: false }
-                    );
-                };
-                updateGlobalResults();
+    useEffect(() => {
+        if (!player.win || !player.saveScore || player.score.time === 0) return;
+        let isMounted = true;
+        const controller = new AbortController();
+        const updateDataBase = async () => {
+            try {
+                const response = await axiosPrivate.post(SCORES_URL, {
+                    signal: controller.signal,
+                    user: player.name,
+                    time: player.score.time,
+                    fouls: player.score.fouls,
+                });
+            } catch (err) {
+                console.error(err);
             }
-        }
-    }, [props.result.score.time]);
+        };
+        updateDataBase();
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, [player.score.time]);
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getScores = async () => {
+            //getting scores from DB (response: sorted 50 best scores arr)
+            try {
+                const response = await axiosPrivate.get(SCORES_URL, {
+                    signal: controller.signal,
+                });
+                setScoresArr(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        getScores();
+
+        const getUserScores = async () => {
+            //getting user scores from DB (response: sorted 10 best scores arr)
+            try {
+                const response = await axiosPrivate.get(
+                    `${SCORES_URL}/${auth.user}`,
+                    {
+                        signal: controller.signal,
+                    }
+                );
+                setUserScoresArr(response.data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        getUserScores();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, [player.win, player.refreshTableFlag]); //refreshTableFlag is called when player clear own results
 
     function timeFormatter(time: number) {
         const timeFormat =
@@ -105,7 +92,7 @@ const Scoretable: React.FC<Props> = (props) => {
     }
 
     //JSX array of results
-    const localScoresElements = localScoresArr.map((singleScore, index) => {
+    const localScoresElements = userScoresArr.map((singleScore, index) => {
         return (
             <div
                 key={nanoid()}
@@ -113,14 +100,16 @@ const Scoretable: React.FC<Props> = (props) => {
                 style={index % 2 === 0 ? style.style1 : style.style2} //particular row backround
             >
                 <span>{index + 1}. </span>
-                <span className="scoretable--name">{singleScore.name} </span>
+                <span className="scoretable--name">
+                    {singleScore.username}{" "}
+                </span>
                 <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
             </div>
         );
     });
 
-    const globalScoresElements = globalScoresArr.map((singleScore, index) => {
+    const globalScoresElements = scoresArr.map((singleScore, index) => {
         return (
             <div
                 key={nanoid()}
@@ -128,7 +117,9 @@ const Scoretable: React.FC<Props> = (props) => {
                 style={index % 2 === 0 ? style.style1 : style.style2}
             >
                 <span>{index + 1}. </span>
-                <span className="scoretable--name">{singleScore.name} </span>
+                <span className="scoretable--name">
+                    {singleScore.username}{" "}
+                </span>
                 <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
             </div>
@@ -138,15 +129,21 @@ const Scoretable: React.FC<Props> = (props) => {
     return (
         <div className="scoreTablesContainer">
             <div className="scoretable">
-                <h2 className="scoretable--header">Local best scores</h2>
+                <h2 className="scoretable--header">Personal best scores</h2>
                 <div className="scoretable--scores-container">
-                    {localScoresElements}
+                    {auth.accessToken
+                        ? localScoresElements.length === 0
+                            ? "No scores saved"
+                            : localScoresElements
+                        : "Only for registered users"}
                 </div>
             </div>
             <div className="scoretable">
                 <h2 className="scoretable--header">Global best scores</h2>
                 <div className="scoretable--scores-container">
-                    {globalScoresElements}
+                    {auth.accessToken
+                        ? globalScoresElements
+                        : "Only for registered users"}
                 </div>
             </div>
         </div>

@@ -1,16 +1,28 @@
-import React from "react";
+import { useState, useEffect, FC } from "react";
+import usePlayerInfo from "../hooks/usePlayerInfo";
 
 interface Props {
-    scoreUpdate: (time: number) => void;
     running: boolean;
-    winFlag: boolean;
 }
 
-const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, winFlag }) => {
-    const [time, setTime] = React.useState(0);
+const Stopwatch: FC<Props> = ({ running }) => {
+    const [time, setTime] = useState(0);
+    const { player, setPlayer } = usePlayerInfo();
 
-    //stopWatch logic
-    React.useEffect(() => {
+    const scoreUpdate = (time: number) => {
+        setPlayer((prevState) => ({
+            ...prevState,
+            score: {
+                ...prevState.score,
+                time: time,
+            },
+        }));
+    };
+
+    //stopWatch logic & if player win -> score update
+    useEffect(() => {
+        if (player.win) scoreUpdate(time);
+        setTime(0);
         let interval: NodeJS.Timeout | undefined;
         if (running) {
             interval = setInterval(() => {
@@ -21,12 +33,6 @@ const Stopwatch: React.FC<Props> = ({ scoreUpdate, running, winFlag }) => {
         }
         return () => clearInterval(interval);
     }, [running]);
-
-    //passing the time to result object in App.tsx as argument in props scoreUpdate function.
-    React.useEffect(() => {
-        if (winFlag) scoreUpdate(time);
-        setTime(0);
-    }, [winFlag]);
 
     function timeFormatter(time: number) {
         const timeFormat =

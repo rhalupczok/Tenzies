@@ -4,9 +4,8 @@
 
 body {
     margin: 0;
-    padding: 0;
-    background-color: #0090f0;
     padding: 20px;
+    background-color: #0090f0;
     font-family: "Karla", sans-serif;
     width: 100vw;
     height: 100vh;
@@ -27,19 +26,178 @@ main {
     position: relative;
 }
 
+/* account */
+.account {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 5px;
+    right: 5px;
+    width: 180px;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.account--info {
+    text-align: end;
+    width: 100%;
+    top: 0;
+    right: 0;
+    cursor: default;
+}
+
+.account--menu {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    background: #b8b8b8;
+    box-shadow: 0px 0px 5px black;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.account--display-btn {
+    cursor: pointer;
+}
+
+.account li {
+    margin: 0;
+    padding: 2px;
+    border-top: 2px solid rgb(0, 0, 0);
+    font-size: 0.8rem;
+}
+
+.account li:not(:first-child):hover {
+    background: #339dff;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+a,
+a:visited {
+    color: black;
+}
+
+input[type="text"],
+input[type="password"],
+button,
+textarea {
+    font-family: "Nunito", sans-serif;
+    font-size: 22px;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+}
+
+label,
+button {
+    margin-top: 1rem;
+}
+
+button {
+    padding: 0.5rem;
+}
+
+li {
+    list-style-type: none;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.line {
+    display: inline-block;
+}
+
+.flexGrow {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.persistCheck {
+    font-size: 0.75rem;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.persistCheck label {
+    margin: 0;
+}
+
+[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+/* .............................................. */
 .title {
     color: #0090f0;
     font-size: 5em;
     margin: 0;
-    text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
+    text-shadow: 0 0 2px #000000;
+    /* text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
         1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
         1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191,
         1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
         1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
-        1px 30px 60px rgba(16, 16, 16, 0.4);
+        1px 30px 60px rgba(16, 16, 16, 0.4); */
 }
 
-.instructions {
+.howToPlay {
     font-family: "Inter", sans-serif;
     font-weight: 400;
     margin-top: 0;
@@ -83,12 +241,22 @@ main {
     z-index: 1;
 }
 
-.gameWindow {
+.game-window {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+.game-window--btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .dice-container {
     display: grid;
     grid-template: auto auto / repeat(5, 1fr);
@@ -273,8 +441,8 @@ main {
         gap: 2vw;
         margin-bottom: 20px;
     }
-    .instructions {
-        width: 90%;
+    .howToPlay {
+        width: 95%;
     }
 }
 

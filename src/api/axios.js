@@ -1,12 +1,13 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:3500";
+const BASE_URL = "https://shielded-cove-16467-80de1c68a131.herokuapp.com/";
 
 export default axios.create({
+    //standard req
     baseURL: BASE_URL,
 });
 export const axiosPrivate = axios.create({
-    //interceptors ?
-    baseURL: BASE_URL, // it is needed for refresh token when initial refresh is denied
+    //for react interceptors req
+    baseURL: BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
 });

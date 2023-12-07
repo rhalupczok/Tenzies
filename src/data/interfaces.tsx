@@ -19,6 +19,18 @@ export interface JwtPayload {
     };
 }
 
+export interface DieProps {
+    key: string;
+    value: number;
+    isHeld: boolean;
+    style: number;
+    holdDice: () => void;
+}
+
+export interface AuthProps {
+    allowedRoles: number[];
+}
+
 export interface PlayerContextProps {
     player: {
         name: string;

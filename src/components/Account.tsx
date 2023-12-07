@@ -10,7 +10,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 const Account: FC = () => {
     const axiosPrivate = useAxiosPrivate();
     const SCORES_URL = "/tenziuserscores";
-    const { auth, setAuth } = useAuth();
+    const { auth } = useAuth();
     const { player, setPlayer } = usePlayerInfo();
     const logout = useLogout();
 
@@ -102,7 +102,9 @@ const Account: FC = () => {
                 </>
             ) : (
                 <span className="account--info">
-                    <Link to="/login">{auth.user}, Login</Link>
+                    <Link className="txtBtn" to="/login">
+                        {auth.user}, <i>Sign In</i>
+                    </Link>
                 </span>
             )}
         </div>

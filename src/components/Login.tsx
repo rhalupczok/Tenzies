@@ -122,11 +122,13 @@ const Login: FC = () => {
                 </div>
             </form>
             <p>
-                <span className="line">
-                    <Link to="/register">Cereate Account</Link>
+                <span className="line ">
+                    <Link className="txtBtn" to="/register">
+                        Cereate Account
+                    </Link>
                 </span>
             </p>
-            <span className="line">
+            <span className="line txtBtn">
                 <span onClick={handleDemo}>Play without account</span>
             </span>
         </main>

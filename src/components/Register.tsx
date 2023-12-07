@@ -70,6 +70,7 @@ const Register: FC = () => {
                     withCredentials: true,
                 }
             );
+
             console.log(response?.data);
             console.log(JSON.stringify(response));
             setSuccess(true);
@@ -84,6 +85,7 @@ const Register: FC = () => {
             } else if (err.response?.status === 409) {
                 setErrMsg("Username is already used");
             } else {
+                console.log(err?.response);
                 setErrMsg("Registration Failed");
             }
             if (errRef.current) errRef.current.focus();
@@ -92,17 +94,27 @@ const Register: FC = () => {
 
     return (
         <>
-            {success ? (
-                <main>
-                    <h1>Account created!</h1>
+            {!success ? (
+                <main className="regSuccess">
+                    <h1>
+                        {" "}
+                        <FontAwesomeIcon icon={faCheck} />
+                        <br />
+                        Success!
+                    </h1>
+
+                    <h2>Your account has been successfully created.</h2>
                     <p>
-                        <span className="line">
-                            <Link to="login">Login</Link>
-                        </span>
+                        <h2>
+                            <Link className="txtBtn" to="/login">
+                                Sign In
+                            </Link>
+                        </h2>
                     </p>
                 </main>
             ) : (
                 <main>
+                    <h1 className="title">Tenzi</h1>
                     <p
                         ref={errRef}
                         className={errMsg ? "errmsg" : "offscreen"}
@@ -110,7 +122,6 @@ const Register: FC = () => {
                     >
                         {errMsg}
                     </p>
-                    <h1>Register</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
@@ -252,7 +263,9 @@ const Register: FC = () => {
                         Already registered?
                         <br />
                         <span className="line">
-                            <Link to="/login">Login</Link>
+                            <Link className="txtBtn" to="/login">
+                                Login
+                            </Link>
                         </span>
                     </p>
                 </main>

@@ -2,13 +2,9 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { FC } from "react";
 import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
-import { JwtPayload } from "../data/interfaces";
+import { JwtPayload, AuthProps } from "../data/interfaces";
 
-interface Props {
-    allowedRoles: number[];
-}
-
-const RequireAuth: FC<Props> = ({ allowedRoles }) => {
+const RequireAuth: FC<AuthProps> = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
 

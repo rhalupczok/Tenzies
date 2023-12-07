@@ -76,12 +76,19 @@ main {
     cursor: pointer;
 }
 
+.regSuccess {
+    display: flex;
+    text-align: center;
+}
+
 form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
     flex-grow: 1;
     padding-bottom: 1rem;
+    width: 300px;
 }
 
 a,
@@ -97,6 +104,7 @@ textarea {
     font-size: 22px;
     padding: 0.25rem;
     border-radius: 0.5rem;
+    width: 250px;
 }
 
 label,
@@ -106,6 +114,11 @@ button {
 
 button {
     padding: 0.5rem;
+}
+
+button:hover:enabled {
+    background: #0090f0;
+    cursor: pointer;
 }
 
 li {
@@ -293,6 +306,16 @@ li {
 
 .btn:hover {
     box-shadow: 0 0 10px #0090f0;
+}
+
+.txtBtn {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.txtBtn:hover {
+    cursor: pointer;
+    color: #0090f0;
 }
 
 .roll-dice:focus {

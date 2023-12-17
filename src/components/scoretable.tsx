@@ -7,7 +7,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Scoretable: FC = () => {
     const axiosPrivate = useAxiosPrivate();
-    const SCORES_URL = "/tenziuserscores";
+    const SCORES_URL = "/tenziGame";
     const { auth } = useAuth();
     const { player } = usePlayerInfo();
     const [userScoresArr, setUserScoresArr] = useState<scoresArr[]>([]);

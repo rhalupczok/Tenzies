@@ -159,7 +159,8 @@ li {
 }
 
 .errmsg {
-    background-color: lightpink;
+    border-radius: 0.2rem;
+    background-color: black;
     color: firebrick;
     font-weight: bold;
     padding: 0.5rem;
@@ -194,6 +195,22 @@ li {
     width: 15px;
     margin: 2px;
     cursor: pointer;
+}
+
+.notActive {
+    color: gray;
+    font-style: italic;
+}
+
+.demoInformation {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #0090f0;
+}
+.demoInformation > p {
+    margin: 0;
+    padding: 0;
 }
 
 /* .............................................. */

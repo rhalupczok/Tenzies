@@ -58,11 +58,11 @@ const Login: FC = () => {
             navigate(from, { replace: true });
         } catch (err: AxiosError | any) {
             if (!err?.response) {
-                setErrMsg("No Server Response");
+                setErrMsg("Server is down");
             } else if (err.response?.status === 400) {
                 setErrMsg("Missing Username or Password");
             } else if (err.response?.status === 401) {
-                setErrMsg("Unauthorized");
+                setErrMsg("Unauthorized - check Username and Password");
             } else {
                 setErrMsg("Login Failed");
             }
@@ -82,6 +82,15 @@ const Login: FC = () => {
 
     return (
         <main>
+            <div className="demoInformation">
+                <p>DEMO User</p>
+                <p>
+                    U: <i>demo</i>
+                </p>
+                <p>
+                    P: <i>Demo1!</i>
+                </p>
+            </div>
             <h1 className="title">Tenzi</h1>
             <p
                 ref={errRef}

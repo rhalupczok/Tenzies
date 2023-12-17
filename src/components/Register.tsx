@@ -71,8 +71,8 @@ const Register: FC = () => {
                 }
             );
 
-            console.log(response?.data);
-            console.log(JSON.stringify(response));
+            // console.log(response?.data);
+            // console.log(JSON.stringify(response));
             setSuccess(true);
             //clear state and controlled inputs
             //need value attrib on inputs for this
@@ -94,7 +94,7 @@ const Register: FC = () => {
 
     return (
         <>
-            {!success ? (
+            {success ? (
                 <main className="regSuccess">
                     <h1>
                         {" "}

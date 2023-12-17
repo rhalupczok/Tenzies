@@ -9,8 +9,8 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Account: FC = () => {
     const axiosPrivate = useAxiosPrivate();
-    const SCORES_URL = "/tenziuserscores";
-    const { auth } = useAuth();
+    const SCORES_URL = "/tenziGame";
+    const { auth, setAuth } = useAuth();
     const { player, setPlayer } = usePlayerInfo();
     const logout = useLogout();
 
@@ -21,6 +21,17 @@ const Account: FC = () => {
                 saveScore: !prevState.saveScore,
             };
         });
+    };
+
+    const deleteAccount = async () => {
+        try {
+            const response = await axiosPrivate.delete(
+                `${SCORES_URL}/deleteUser/${auth.user}`
+            );
+            setAuth({ user: "", roles: [0], accessToken: "" });
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     const deleteUserScores = async () => {
@@ -97,13 +108,18 @@ const Account: FC = () => {
                             </label>
                         </li>
                         <li onClick={deleteUserScores}>Clear all my scores</li>
+                        {auth.user === "demo" ? (
+                            <li className="notActive">Delete account</li>
+                        ) : (
+                            <li onClick={deleteAccount}>Delete account</li>
+                        )}
                         <li onClick={logout}>LogOut</li>
                     </ul>
                 </>
             ) : (
                 <span className="account--info">
                     <Link className="txtBtn" to="/login">
-                        {auth.user}, <i>Sign In</i>
+                        No account, <i>Sign In</i>
                     </Link>
                 </span>
             )}

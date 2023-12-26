@@ -1,5 +1,5 @@
 import axios from "axios";
-// const BASE_URL = "https://shielded-cove-16467-80de1c68a131.herokuapp.com/"; //HEROKU
+
 // const BASE_URL = "http://localhost:3500"; //LOCAL
 const BASE_URL = "https://tenziserver-sl6h2q42.b4a.run/"; //back4app
 

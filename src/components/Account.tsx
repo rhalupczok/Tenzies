@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import usePlayerInfo from "../hooks/usePlayerInfo";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -108,12 +108,21 @@ const Account: FC = () => {
                             </label>
                         </li>
                         <li onClick={deleteUserScores}>Clear all my scores</li>
-                        {auth.user === "demo" ? (
-                            <li className="notActive">Delete account</li>
-                        ) : (
-                            <li onClick={deleteAccount}>Delete account</li>
-                        )}
-                        <li onClick={logout}>LogOut</li>
+                        <div className="account--li-btns">
+                            <button
+                                disabled={auth.user === "demo" ? true : false}
+                                className="account--li-btn"
+                                onClick={deleteAccount}
+                            >
+                                Delete account
+                            </button>
+                            <button
+                                className="account--li-btn"
+                                onClick={logout}
+                            >
+                                LogOut
+                            </button>
+                        </div>
                     </ul>
                 </>
             ) : (

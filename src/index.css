@@ -67,13 +67,31 @@ main {
 .account li {
     margin: 0;
     padding: 2px;
-    border-top: 2px solid rgb(0, 0, 0);
+    border-bottom: 2px solid rgb(0, 0, 0);
     font-size: 0.8rem;
 }
 
 .account li:not(:first-child):hover {
     background: #339dff;
     cursor: pointer;
+}
+
+.account--li-btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.account--li-btn {
+    padding: 0px;
+    background: #0090f0;
+    width: fit-content;
+    padding: 0 2px;
+    margin: 1rem 0.2rem 0.2rem 0.2rem;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 .regSuccess {

@@ -33,14 +33,26 @@ const PersistLogin: FC = () => {
         };
     }, []);
 
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`);
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
-    }, [isLoading]);
+    // useEffect(() => {
+    //     console.log(`isLoading: ${isLoading}`);
+    //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
+    // }, [isLoading]);
 
     return (
         <>
-            {!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}
+            {!persist ? (
+                <Outlet />
+            ) : isLoading ? (
+                <main>
+                    <img
+                        src={require("../images/persist_loading.gif")}
+                        alt="lading-gif"
+                        className="lading-gif"
+                    />
+                </main>
+            ) : (
+                <Outlet />
+            )}
         </>
     );
 };

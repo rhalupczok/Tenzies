@@ -1,0 +1,29 @@
+@use "../vars/vars.scss" as *;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #0090f0;
+    font-family: "Karla", sans-serif;
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    background-color: #ececec;
+    min-height: 400px;
+    max-width: 800px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto auto;
+    position: relative;
+}

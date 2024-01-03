@@ -5,19 +5,19 @@ import usePlayerInfo from "../hooks/usePlayerInfo";
 import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
+const SCORES_URL = "/tenziGame";
+const style = {
+    //dynamic styling for each score row
+    style1: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
+    style2: { backgroundColor: "rgba(0, 0, 0, 0.4)" },
+};
+
 const Scoretable: FC = () => {
     const axiosPrivate = useAxiosPrivate();
-    const SCORES_URL = "/tenziGame";
     const { auth } = useAuth();
     const { player } = usePlayerInfo();
     const [userScoresArr, setUserScoresArr] = useState<scoresArr[]>([]);
     const [scoresArr, setScoresArr] = useState<scoresArr[]>([]);
-
-    const style = {
-        //dynamic styling for each score row
-        style1: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
-        style2: { backgroundColor: "rgba(0, 0, 0, 0.4)" },
-    };
 
     useEffect(() => {
         if (!player.win || !player.saveScore || player.score.time === 0) return;

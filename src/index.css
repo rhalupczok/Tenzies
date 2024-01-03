@@ -208,6 +208,10 @@ li {
     margin: 0;
 }
 
+.lading-gif {
+    width: 200px;
+}
+
 [type="checkbox"] {
     height: 15px;
     width: 15px;

@@ -1,10 +1,11 @@
 import { useState, useEffect, FC } from "react";
+import style from "../styles/partials/Game.module.scss";
 import Account from "./Account";
-import Die from "./die";
-import Stopwatch from "./stopwatch";
-import StyleSelection from "./styleselection";
-import Scoretable from "./scoretable";
-import WinPopup from "./winpopup";
+import Die from "./Die";
+import StopWatch from "./StopWatch";
+import StyleSelector from "./StyleSelector";
+import Scoretable from "./ScoreTable";
+import WinPopup from "./WinPopup";
 import { nanoid } from "nanoid";
 import Confetti from "react-confetti";
 import { dice } from "../data/interfaces";
@@ -140,11 +141,12 @@ const Game: FC = () => {
     };
 
     return (
-        <main>
+        <section className={style.game}>
             <Account />
+            <StopWatch running={play} />
             {player.win && (
                 //display confetti and winPopup container when player win (property win is changed in first useEffect on the top of App.tsx)
-                <div className="winPopup">
+                <div className={style.game__winPopup}>
                     <Confetti />
                     <WinPopup />
                     <button className="btn" onClick={playGame}>
@@ -155,34 +157,37 @@ const Game: FC = () => {
                     </button>
                 </div>
             )}
-            <h1 className="title">Tenzi</h1>
-            <Stopwatch running={play} />
-            <p className="howToPlay">
+            <header className={style.game__header}>
+                <h1>Tenzi</h1>
+            </header>
+
+            <p className={style.game__howToPlay}>
                 Goal is to get all dice the same. Hold dice by click on it. Be
                 careful to do not miss any! <br /> Hurry up, the time is being
                 counted!
             </p>
             {play ? ( // the play boolean value toggle screen betwen main menu and game view.
-                <div className="game-window">
-                    <div className="dice-container">{diceElements}</div>
+                <>
+                    <section className={style.game__diceContainer}>
+                        {diceElements}
+                    </section>
                     <button id="roll-btn" className="btn" onClick={rollDice}>
                         Roll
                     </button>
-
                     <button className="btn" onClick={stopGame}>
                         Stop
                     </button>
-                </div>
+                </>
             ) : (
-                <div className="menuWindow">
-                    <StyleSelection />
+                <>
+                    <StyleSelector />
                     <button className="btn" onClick={playGame}>
                         Play
                     </button>
-                </div>
+                    <Scoretable />
+                </>
             )}
-            {!play && <Scoretable />}
-        </main>
+        </section>
     );
 };
 

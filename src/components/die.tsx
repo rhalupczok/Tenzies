@@ -1,4 +1,5 @@
 import { DieProps } from "../data/interfaces";
+import style from "../styles/partials/Die.module.scss";
 
 export default function Die(props: DieProps) {
     const styles = {
@@ -24,12 +25,12 @@ export default function Die(props: DieProps) {
     };
 
     return (
-        <div
-            className="die-face"
+        <figure
+            className={style.dieFace}
             style={props.style ? styles.symbols(props.value) : styles.numbers} //dependly of chosen style the dices are numeric(style === 0) or symbolic(style === 1)
             onClick={props.holdDice}
         >
-            {!props.style && <h2 className="die-num">{props.value}</h2>}
-        </div>
+            {!props.style && <h2 className={style.dieNum}>{props.value}</h2>}
+        </figure>
     );
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect, FC } from "react";
+import style from "../styles/partials/ScoreTable.module.scss";
 import { nanoid } from "nanoid";
 import { scoresArr } from "../data/interfaces";
 import usePlayerInfo from "../hooks/usePlayerInfo";
@@ -6,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const SCORES_URL = "/tenziGame";
-const style = {
+const inlineStyle = {
     //dynamic styling for each score row
     style1: { backgroundColor: "rgba(0, 0, 0, 0.2)" },
     style2: { backgroundColor: "rgba(0, 0, 0, 0.4)" },
@@ -94,59 +95,63 @@ const Scoretable: FC = () => {
     //JSX array of results
     const localScoresElements = userScoresArr.map((singleScore, index) => {
         return (
-            <div
+            <figure
                 key={nanoid()}
-                className="scoretable--score"
-                style={index % 2 === 0 ? style.style1 : style.style2} //particular row backround
+                className={style.table__score}
+                style={
+                    index % 2 === 0 ? inlineStyle.style1 : inlineStyle.style2
+                } //particular row backround
             >
                 <span>{index + 1}. </span>
-                <span className="scoretable--name">
+                <span className={style.table__name}>
                     {singleScore.username}{" "}
                 </span>
                 <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
-            </div>
+            </figure>
         );
     });
 
     const globalScoresElements = scoresArr.map((singleScore, index) => {
         return (
-            <div
+            <figure
                 key={nanoid()}
-                className="scoretable--score"
-                style={index % 2 === 0 ? style.style1 : style.style2}
+                className={style.table__score}
+                style={
+                    index % 2 === 0 ? inlineStyle.style1 : inlineStyle.style2
+                }
             >
                 <span>{index + 1}. </span>
-                <span className="scoretable--name">
+                <span className={style.table__name}>
                     {singleScore.username}{" "}
                 </span>
                 <span>{timeFormatter(singleScore.time)}</span>
                 <span>{`Miss: ${singleScore.fouls}`}</span>
-            </div>
+            </figure>
         );
     });
 
     return (
-        <div className="scoreTablesContainer">
-            <div className="scoretable">
-                <h2 className="scoretable--header">Personal best scores</h2>
-                <div className="scoretable--scores-container">
+        <section className={style.tablesContainer}>
+            <section className={style.table}>
+                <h2 className={style.table__header}>Personal best scores</h2>
+                <section className={style.table__scoresContainer}>
                     {auth.accessToken
                         ? localScoresElements.length === 0
                             ? "No scores saved"
                             : localScoresElements
                         : "Only for registered users"}
-                </div>
-            </div>
-            <div className="scoretable">
-                <h2 className="scoretable--header">Global best scores</h2>
-                <div className="scoretable--scores-container">
+                </section>
+            </section>
+            <section className={style.table}>
+                <h2 className={style.table__header}>Global best scores</h2>
+                <section className={style.table__scoresContainer}>
                     {auth.accessToken
                         ? globalScoresElements
                         : "Only for registered users"}
-                </div>
-            </div>
-        </div>
+                </section>
+            </section>
+        </section>
     );
 };
 

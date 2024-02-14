@@ -1,11 +1,12 @@
 import { useState, useEffect, FC } from "react";
+import style from "../styles/partials/StopWatch.module.scss";
 import usePlayerInfo from "../hooks/usePlayerInfo";
 
 interface Props {
     running: boolean;
 }
 
-const Stopwatch: FC<Props> = ({ running }) => {
+const StopWatch: FC<Props> = ({ running }) => {
     const [time, setTime] = useState(0);
     const { player, setPlayer } = usePlayerInfo();
 
@@ -19,7 +20,7 @@ const Stopwatch: FC<Props> = ({ running }) => {
         }));
     };
 
-    //stopWatch logic & if player win -> score update
+    //StopWatch logic & if player win -> score update
     useEffect(() => {
         if (player.win) scoreUpdate(time);
         setTime(0);
@@ -45,15 +46,11 @@ const Stopwatch: FC<Props> = ({ running }) => {
     }
 
     return (
-        <div className="stopwatch">
-            {running && (
-                <div className="numbers">
-                    <span>Your time is: </span>
-                    <span>{timeFormatter(time)}</span>
-                </div>
-            )}
-        </div>
+        <time className={style.stopWatch}>
+            <span>Your time is: </span>
+            <span>{timeFormatter(time)}</span>
+        </time>
     );
 };
 
-export default Stopwatch;
+export default StopWatch;

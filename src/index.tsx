@@ -5,7 +5,7 @@ import {
     RouterProvider,
     Route,
 } from "react-router-dom";
-import "./index.css";
+import "./styles/index.scss";
 import { AuthProvider } from "./context/AuthProvider";
 import { PlayerInfoProvider } from "./context/PlayerInfoProvider";
 import App from "./App";

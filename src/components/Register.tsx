@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, FC } from "react";
+import style from "../styles/partials/Authorization.module.scss";
 import {
     faCheck,
     faTimes,
@@ -90,50 +91,58 @@ const Register: FC = () => {
     };
 
     return (
-        <>
-            {success ? (
-                <main className="regSuccess">
-                    <h1>
-                        {" "}
-                        <FontAwesomeIcon icon={faCheck} />
-                        <br />
-                        Success!
-                    </h1>
+        <section className={style.authorization}>
+            <header className={style.authorization__header}>
+                <h1>Tenzi</h1>
+            </header>
+            {!success ? (
+                <article className={style.authorization__authStatus}>
+                    <FontAwesomeIcon icon={faCheck} />
+                    <h2>Success!</h2>
+                    <p>Your account has been successfully created.</p>
 
-                    <h2>Your account has been successfully created.</h2>
                     <p>
-                        <h2>
-                            <Link className="txtBtn" to="/login">
-                                Sign In
-                            </Link>
-                        </h2>
+                        <Link
+                            className={style.authorization__txtBtn}
+                            to="/login"
+                        >
+                            Login
+                        </Link>
                     </p>
-                </main>
+                </article>
             ) : (
-                <main>
-                    <h1 className="title">Tenzi</h1>
+                <>
                     <p
                         ref={errRef}
-                        className={errMsg ? "errmsg" : "offscreen"}
+                        className={
+                            errMsg ? `${style.authorization__errMsg}` : "jsHide"
+                        }
                         aria-live="assertive"
                     >
                         {errMsg}
                     </p>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
+                    <form onSubmit={handleSubmit} className={style.form}>
+                        <label className={style.form__label} htmlFor="username">
                             Username:
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                className={validName ? "valid" : "hide"}
+                                className={
+                                    validName
+                                        ? `${style.form__icon_valid}`
+                                        : "jsHide"
+                                }
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
                                 className={
-                                    validName || !user ? "hide" : "invalid"
+                                    validName || !user
+                                        ? "jsHide"
+                                        : `${style.form__icon_invalid}`
                                 }
                             />
                         </label>
                         <input
+                            className={style.form__input}
                             type="text"
                             id="username"
                             ref={userRef}
@@ -150,32 +159,39 @@ const Register: FC = () => {
                             id="uidnote"
                             className={
                                 userFocus && user && !validName
-                                    ? "instructions"
-                                    : "offscreen"
+                                    ? `${style.form__instruction}`
+                                    : "jsHide"
                             }
                         >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            3 to 10 characters.
+                            <FontAwesomeIcon icon={faInfoCircle} /> 3 to 10
+                            characters.
                             <br />
                             Must begin with a letter.
                             <br />
                             Letters, numbers, underscores, hyphens allowed.
                         </p>
 
-                        <label htmlFor="password">
+                        <label className={style.form__label} htmlFor="password">
                             Password:
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                className={validPwd ? "valid" : "hide"}
+                                className={
+                                    validPwd
+                                        ? `${style.form__icon_valid}`
+                                        : "jsHide"
+                                }
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
                                 className={
-                                    validPwd || !pwd ? "hide" : "invalid"
+                                    validPwd || !pwd
+                                        ? "jsHide"
+                                        : `${style.form__icon_invalid}`
                                 }
                             />
                         </label>
                         <input
+                            className={style.form__input}
                             type="password"
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
@@ -190,12 +206,12 @@ const Register: FC = () => {
                             id="pwdnote"
                             className={
                                 pwdFocus && !validPwd
-                                    ? "instructions"
-                                    : "offscreen"
+                                    ? `${style.form__instruction}`
+                                    : "jsHide"
                             }
                         >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            5 to 15 characters.
+                            <FontAwesomeIcon icon={faInfoCircle} /> 5 to 15
+                            characters.
                             <br />
                             Must include uppercase and lowercase letters, a
                             number and a special character.
@@ -208,22 +224,30 @@ const Register: FC = () => {
                             <span aria-label="percent">%</span>
                         </p>
 
-                        <label htmlFor="confirm_pwd">
+                        <label
+                            className={style.form__label}
+                            htmlFor="confirm_pwd"
+                        >
                             Confirm Password:
                             <FontAwesomeIcon
                                 icon={faCheck}
                                 className={
-                                    validMatch && matchPwd ? "valid" : "hide"
+                                    validMatch && matchPwd
+                                        ? `${style.form__icon_valid}`
+                                        : "jsHide"
                                 }
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
                                 className={
-                                    validMatch || !matchPwd ? "hide" : "invalid"
+                                    validMatch || !matchPwd
+                                        ? "jsHide"
+                                        : `${style.form__icon_invalid}`
                                 }
                             />
                         </label>
                         <input
+                            className={style.form__input}
                             type="password"
                             id="confirm_pwd"
                             onChange={(e) => setMatchPwd(e.target.value)}
@@ -234,19 +258,8 @@ const Register: FC = () => {
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
                         />
-                        <p
-                            id="confirmnote"
-                            className={
-                                matchFocus && !validMatch
-                                    ? "instructions"
-                                    : "offscreen"
-                            }
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
-                        </p>
-
                         <button
+                            className={style.form__button}
                             disabled={
                                 !validName || !validPwd || !validMatch
                                     ? true
@@ -256,18 +269,13 @@ const Register: FC = () => {
                             Sign Up
                         </button>
                     </form>
-                    <p>
-                        Already registered?
-                        <br />
-                        <span className="line">
-                            <Link className="txtBtn" to="/login">
-                                Login
-                            </Link>
-                        </span>
-                    </p>
-                </main>
+                    <p>Already registered?</p>
+                    <Link className={style.authorization__txtBtn} to="/login">
+                        Login
+                    </Link>
+                </>
             )}
-        </>
+        </section>
     );
 };
 

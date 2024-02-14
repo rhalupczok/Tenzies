@@ -2,11 +2,7 @@ import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 const Layout: FC = () => {
-    return (
-        <main>
-            <Outlet />
-        </main>
-    );
+    return <Outlet />;
 };
 
 export default Layout;

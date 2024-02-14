@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import style from "../styles/partials/Account.module.scss";
 import useAuth from "../hooks/useAuth";
 import usePlayerInfo from "../hooks/usePlayerInfo";
 import { Link } from "react-router-dom";
@@ -50,89 +51,69 @@ const Account: FC = () => {
         });
     };
 
-    useEffect(() => {
-        const menu = document.querySelector(".account--menu");
-        const menuBtn = document.querySelector(".account--info");
-        document.addEventListener("click", (event: MouseEvent) => {
-            if (
-                event.target instanceof Node &&
-                menu &&
-                menuBtn &&
-                !menu.contains(event.target) &&
-                !menuBtn.contains(event.target)
-            ) {
-                menu.classList.add("hide");
-            }
-        });
-        return document.removeEventListener("click", (event: MouseEvent) => {
-            if (
-                event.target instanceof Node &&
-                menu &&
-                menuBtn &&
-                !menu.contains(event.target) &&
-                !menuBtn.contains(event.target)
-            ) {
-                menu.classList.add("hide");
-            }
-        });
-    }, []);
-
     const displayUserMenu: () => void = () => {
-        const menu = document.querySelector(".account--menu");
-        menu?.classList.toggle("hide");
+        const menu = document.querySelector(`.${style.menuItems}`);
+        menu?.classList.toggle("jsHide");
     };
     return (
-        <div className="account">
+        <aside className={style.account}>
             {auth?.roles?.includes(2001) ? (
                 <>
-                    <span className="account--info">
+                    <span className={style.account__userName}>
                         {`Hello, ${auth.user} `}
-                        <span
-                            className="account--display-btn"
+                        <FontAwesomeIcon
+                            className={style.account__gearIcon}
                             onClick={displayUserMenu}
-                        >
-                            <FontAwesomeIcon icon={faGear} />
-                        </span>
+                            icon={faGear}
+                        />
                     </span>
-                    <ul className="account--menu hide">
-                        <li className="account--li-checkbox">
+                    <ul className={`${style.menuItems} jsHide`}>
+                        <li className={style.menuItems__item}>
                             <input
-                                className="check"
+                                className={style.menuItems__item_checkbox}
                                 type="checkbox"
                                 id="saveScores"
                                 onChange={saveScoreCheck}
                                 checked={player.saveScore}
                             />
-                            <label htmlFor="saveScores">
+                            <label
+                                htmlFor="saveScores"
+                                className={style.menuItems__item_label}
+                            >
                                 Remember my scores
                             </label>
                         </li>
-                        <li onClick={deleteUserScores}>Clear all my scores</li>
-                        <div className="account--li-btns">
+                        <li
+                            className={style.menuItems__item}
+                            onClick={deleteUserScores}
+                        >
+                            Clear all my scores
+                        </li>
+                        <li className={style.menuItems__item}>
                             <button
                                 disabled={auth.user === "demo" ? true : false}
-                                className="account--li-btn"
+                                className={style.menuItems__item_button}
                                 onClick={deleteAccount}
                             >
                                 Delete account
                             </button>
                             <button
-                                className="account--li-btn"
+                                className={style.menuItems__item_button}
                                 onClick={logout}
                             >
                                 LogOut
                             </button>
-                        </div>
+                        </li>
                     </ul>
                 </>
             ) : (
-                <span className="account--info">
-                    <Link className="txtBtn" to="/login">
+                <span className={style.account__userName}>
+                    <Link className={style.account__loginButton} to="/login">
                         No account, <i>Sign In</i>
                     </Link>
                 </span>
             )}
-        </div>
+        </aside>
     );
 };
 

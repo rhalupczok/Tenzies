@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, FC, FormEvent } from "react";
+import style from "../styles/partials/Authorization.module.scss";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../hooks/useInput";
@@ -81,8 +82,8 @@ const Login: FC = () => {
     };
 
     return (
-        <main>
-            <div className="demoInformation">
+        <section className={style.authorization}>
+            <aside className={style.authorization__demoData}>
                 <p>DEMO User</p>
                 <p>
                     U: <i>demo</i>
@@ -90,19 +91,25 @@ const Login: FC = () => {
                 <p>
                     P: <i>Demo1!</i>
                 </p>
-            </div>
-            <h1 className="title">Tenzi</h1>
+            </aside>
+            <header className={style.authorization__header}>
+                <h1>Tenzi</h1>
+            </header>
+            <h2>Login</h2>
             <p
                 ref={errRef}
-                className={errMsg ? "errmsg" : "offscreen"}
+                className={errMsg ? `${style.authorization__errMsg}` : "jsHide"}
                 aria-live="assertive"
             >
                 {errMsg}
             </p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+
+            <form onSubmit={handleSubmit} className={style.form}>
+                <label className={style.form__label} htmlFor="username">
+                    Username:
+                </label>
                 <input
+                    className={style.form__input}
                     type="text"
                     id="username"
                     ref={userRef}
@@ -111,36 +118,39 @@ const Login: FC = () => {
                     required
                 />
 
-                <label htmlFor="password">Password:</label>
+                <label className={style.form__label} htmlFor="password">
+                    Password:
+                </label>
                 <input
+                    className={style.form__input}
                     type="password"
                     id="password"
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}
                     required
                 />
-                <button>Sign In</button>
-                <div className="persistCheck">
+                <button className={style.form__button}>Login</button>
+                <p className={style.form__persistCheck}>
                     <input
                         type="checkbox"
                         id="persist"
                         onChange={toggleCheck}
                         checked={check}
                     />
-                    <label htmlFor="persist">Trust this device</label>
-                </div>
+                    <label className={style.form__label} htmlFor="persist">
+                        Trust this device
+                    </label>
+                </p>
             </form>
             <p>
-                <span className="line ">
-                    <Link className="txtBtn" to="/register">
-                        Cereate Account
-                    </Link>
-                </span>
+                <Link className={style.authorization__txtBtn} to="/register">
+                    Cereate Account
+                </Link>
             </p>
-            <span className="line txtBtn">
-                <span onClick={handleDemo}>Play without account</span>
-            </span>
-        </main>
+            <p className={style.authorization__txtBtn} onClick={handleDemo}>
+                Play without account
+            </p>
+        </section>
     );
 };
 

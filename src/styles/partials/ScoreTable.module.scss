@@ -1,0 +1,89 @@
+.tablesContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.8rem;
+    font-size: 0.8rem;
+}
+.table {
+    margin-top: 1rem;
+    padding: 0.3rem 0.5rem;
+    border: 2px solid #480064;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px #480064;
+    background-color: #b3b3b3;
+
+    &__header {
+        text-align: center;
+        margin: 0 0 0.2rem 0;
+        padding: 0;
+        color: #480064;
+        font-style: italic;
+        text-shadow: 0 0 1px black;
+    }
+
+    &__scoresContainer {
+        max-height: 95px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border-radius: 0.2rem;
+    }
+
+    &__score {
+        margin: 0;
+        padding: 0 0.3rem;
+        display: grid;
+        grid-template-columns: 20px 65px 60px 50px;
+    }
+
+    &__name {
+        word-break: break-all;
+    }
+}
+
+.winPopup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+}
+
+.winpopup--content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.winpopup--text {
+    font-size: 2rem;
+    color: white;
+}
+.winpopup--fouls {
+    font-size: 1rem;
+    color: white;
+}
+
+.winpopup--time {
+    font-size: 2rem;
+    color: white;
+}
+
+.missed-dice-text {
+    color: red;
+}
+
+.missed-dice-bg {
+    background-color: red;
+}
+
+@media screen and (max-width: 600px) {
+    .tablesContainer {
+        flex-direction: column;
+    }
+}

@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import style from "../styles/partials/Authorization.module.scss";
 import { useState, useEffect, FC } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
@@ -33,23 +34,18 @@ const PersistLogin: FC = () => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     console.log(`isLoading: ${isLoading}`);
-    //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`);
-    // }, [isLoading]);
-
     return (
         <>
             {!persist ? (
                 <Outlet />
             ) : isLoading ? (
-                <main>
+                <section className={style.authorization}>
                     <img
                         src={require("../images/persist_loading.gif")}
-                        alt="lading-gif"
-                        className="lading-gif"
+                        alt="loading-gif"
+                        className={style.authorization__loadingIMG}
                     />
-                </main>
+                </section>
             ) : (
                 <Outlet />
             )}

@@ -1,0 +1,123 @@
+.authorization {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto auto;
+    position: relative;
+
+    &__demoData {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+
+    &__header {
+        color: #480064;
+        font-size: 2rem;
+        text-shadow: 0 0 2px #000000;
+    }
+
+    &__errMsg {
+        border-radius: 0.2rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        color: rgb(255, 0, 0);
+        font-weight: 700;
+        padding: 0.2rem;
+        margin: 1rem;
+    }
+
+    &__txtBtn {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    &__txtBtn:hover {
+        color: #480064;
+    }
+
+    &__authStatus {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 4rem;
+        height: 300px;
+    }
+
+    &__loadingIMG {
+        width: 200px;
+        margin: 100px auto;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+    width: 300px;
+
+    &__input {
+        outline: none;
+        border: 1px solid rgb(255, 255, 255);
+        background: none;
+        font-size: 22px;
+        padding: 0.25rem;
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        width: 250px;
+        color: white;
+    }
+
+    &__label {
+        width: 250px;
+        text-align: left;
+    }
+
+    &__button {
+        border: 1px solid rgb(255, 255, 255);
+        background: white;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        width: 250px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    &__button:hover {
+        background: #480064;
+        color: white;
+    }
+
+    &__persistCheck {
+        margin: 0.2rem;
+        width: 250px;
+        font-size: 0.75rem;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__icon_valid {
+        color: limegreen;
+        margin-left: 0.25rem;
+    }
+
+    &__icon_invalid {
+        color: red;
+        margin-left: 0.25rem;
+    }
+
+    &__instruction {
+        font-size: 0.75rem;
+        border-radius: 0.5rem;
+        background: #000;
+        color: #fff;
+        padding: 0.25rem;
+        margin: 0.5rem;
+    }
+}

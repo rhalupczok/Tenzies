@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Tenzies/static/css/main.c3d8fef9.css",
-    "main.js": "/Tenzies/static/js/main.e7b0518a.js",
+    "main.css": "/Tenzies/static/css/main.53c75a1e.css",
+    "main.js": "/Tenzies/static/js/main.19b1e290.js",
     "static/media/persist_loading.gif": "/Tenzies/static/media/persist_loading.147adebbe08729e16b3f.gif",
     "index.html": "/Tenzies/index.html",
-    "main.c3d8fef9.css.map": "/Tenzies/static/css/main.c3d8fef9.css.map",
-    "main.e7b0518a.js.map": "/Tenzies/static/js/main.e7b0518a.js.map"
+    "main.53c75a1e.css.map": "/Tenzies/static/css/main.53c75a1e.css.map",
+    "main.19b1e290.js.map": "/Tenzies/static/js/main.19b1e290.js.map"
   },
   "entrypoints": [
-    "static/css/main.c3d8fef9.css",
-    "static/js/main.e7b0518a.js"
+    "static/css/main.53c75a1e.css",
+    "static/js/main.19b1e290.js"
   ]
 }

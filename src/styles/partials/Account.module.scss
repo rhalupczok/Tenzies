@@ -1,22 +1,22 @@
 .account {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    top: 5px;
-    right: 5px;
-    width: 180px;
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
     flex-direction: column;
     justify-content: flex-end;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 180px;
+    margin: 0;
+    padding: 0;
     z-index: 1;
 
     &__userName {
-        text-align: end;
-        width: 100%;
         top: 0;
         right: 0;
+        width: 100%;
+        text-align: end;
         cursor: default;
     }
 
@@ -25,8 +25,8 @@
     }
 
     &__loginButton {
-        cursor: pointer;
         text-decoration: underline;
+        cursor: pointer;
     }
 
     &__loginButton:hover {
@@ -35,14 +35,14 @@
 }
 
 .menuItems {
-    margin: 0;
-    padding: 0;
     top: 0;
     right: 0;
+    margin: 0;
+    padding: 0;
     background: #b8b8b8;
-    box-shadow: 0px 0px 5px black;
     border: 2px solid black;
     border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
 
     &__item {
         display: flex;
@@ -64,16 +64,16 @@
 
         &_button {
             display: inline-block;
+            max-width: 90px;
+            min-height: 50px;
+            margin: 0.5rem 0.2rem;
+            padding: 5px;
             background: #480064;
             border: none;
             border-radius: 0.2rem;
-            color: white;
-            max-width: 90px;
-            min-height: 50px;
-            padding: 5px;
-            margin: 0.5rem 0.2rem;
             font-size: 1rem;
             font-weight: 700;
+            color: white;
             cursor: pointer;
         }
 

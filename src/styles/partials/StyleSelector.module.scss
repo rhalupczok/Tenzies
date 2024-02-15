@@ -20,17 +20,17 @@
 
     &__button {
         width: 100px;
-        border-radius: 0.3rem;
         border: 2px solid grey;
-        cursor: pointer;
+        border-radius: 0.3rem;
         opacity: 0.5;
+        cursor: pointer;
     }
 
     &__button:hover {
-        transform: scale(1.2);
-        opacity: 1;
         border: 2px solid #480064;
         box-shadow: 0 0 5px #480064;
+        transform: scale(1.2);
+        opacity: 1;
         z-index: 1;
     }
 }

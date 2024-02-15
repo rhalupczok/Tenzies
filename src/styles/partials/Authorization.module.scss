@@ -1,38 +1,38 @@
 .authorization {
-    height: 100%;
-    width: 100%;
-    padding: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 100%;
     margin: auto auto;
-    position: relative;
+    padding: 20px;
 
     &__demoData {
         position: absolute;
-        right: 5px;
         top: 5px;
+        right: 5px;
     }
 
     &__header {
-        color: #480064;
         font-size: 2rem;
         text-shadow: 0 0 2px #000000;
+        color: #480064;
     }
 
     &__errMsg {
-        border-radius: 0.2rem;
-        background-color: rgba(255, 255, 255, 0.5);
-        color: rgb(255, 0, 0);
-        font-weight: 700;
-        padding: 0.2rem;
         margin: 1rem;
+        padding: 0.2rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 0.2rem;
+        font-weight: 700;
+        color: rgb(255, 0, 0);
     }
 
     &__txtBtn {
-        cursor: pointer;
         text-decoration: underline;
+        cursor: pointer;
     }
     &__txtBtn:hover {
         color: #480064;
@@ -43,8 +43,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        padding: 4rem;
         height: 300px;
+        padding: 4rem;
     }
 
     &__loadingIMG {
@@ -59,19 +59,19 @@
     align-items: center;
     justify-content: space-evenly;
     flex-grow: 1;
-    padding-bottom: 1rem;
     width: 300px;
+    padding-bottom: 1rem;
 
     &__input {
-        outline: none;
-        border: 1px solid rgb(255, 255, 255);
-        background: none;
-        font-size: 22px;
-        padding: 0.25rem;
-        margin-bottom: 1rem;
-        border-radius: 0.5rem;
         width: 250px;
+        margin-bottom: 1rem;
+        padding: 0.25rem;
+        background: none;
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 0.5rem;
+        font-size: 22px;
         color: white;
+        outline: none;
     }
 
     &__label {
@@ -80,11 +80,11 @@
     }
 
     &__button {
-        border: 1px solid rgb(255, 255, 255);
-        background: white;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
         width: 250px;
+        padding: 0.5rem;
+        background: white;
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 0.5rem;
         font-weight: 700;
         cursor: pointer;
     }
@@ -95,29 +95,29 @@
     }
 
     &__persistCheck {
-        margin: 0.2rem;
-        width: 250px;
-        font-size: 0.75rem;
         justify-content: flex-start;
         align-items: center;
+        width: 250px;
+        margin: 0.2rem;
+        font-size: 0.75rem;
     }
 
     &__icon_valid {
-        color: limegreen;
         margin-left: 0.25rem;
+        color: limegreen;
     }
 
     &__icon_invalid {
-        color: red;
         margin-left: 0.25rem;
+        color: red;
     }
 
     &__instruction {
-        font-size: 0.75rem;
-        border-radius: 0.5rem;
-        background: #000;
-        color: #fff;
-        padding: 0.25rem;
         margin: 0.5rem;
+        padding: 0.25rem;
+        background: #000;
+        border-radius: 0.5rem;
+        font-size: 0.75rem;
+        color: #fff;
     }
 }

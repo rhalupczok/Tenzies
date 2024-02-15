@@ -1,13 +1,13 @@
 .dieFace {
-    margin: 0;
-    padding: 0;
-    height: 50px;
-    width: 50px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
 

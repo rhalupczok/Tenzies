@@ -1,22 +1,22 @@
 .game {
-    height: 100%;
-    width: 100%;
-    padding: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 100%;
     margin: auto auto;
-    position: relative;
+    padding: 20px;
 
     &__winPopup {
         position: absolute;
-        width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 100%;
+        height: 100%;
         background: linear-gradient(
             45deg,
             rgb(0, 174, 255),
@@ -30,16 +30,16 @@
         margin: 0;
         padding: 0;
         font-size: 2em;
-        color: #480064;
         text-shadow: 0 0 2px #000000;
+        color: #480064;
     }
 
     &__howToPlay {
-        font-family: "Inter", sans-serif;
-        font-weight: 400;
+        width: 50%;
         margin-top: 0;
         text-align: center;
-        width: 50%;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
     }
 
     &__diceContainer {
@@ -59,14 +59,14 @@
     }
 
     &__paragraph {
-        font-size: 1rem;
         margin: 1rem;
+        font-size: 1rem;
     }
 
     &__score {
         font-weight: 700;
-        color: white;
         font-size: 1.7rem;
+        color: white;
     }
 }
 

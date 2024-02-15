@@ -7,32 +7,32 @@
 .table {
     margin-top: 1rem;
     padding: 0.3rem 0.5rem;
+    background-color: #b3b3b3;
     border: 2px solid #480064;
     border-radius: 1rem;
     box-shadow: 0 0 10px #480064;
-    background-color: #b3b3b3;
 
     &__header {
-        text-align: center;
         margin: 0 0 0.2rem 0;
         padding: 0;
-        color: #480064;
-        font-style: italic;
         text-shadow: 0 0 1px black;
+        text-align: center;
+        font-style: italic;
+        color: #480064;
     }
 
     &__scoresContainer {
         max-height: 95px;
+        border-radius: 0.2rem;
         overflow-y: auto;
         overflow-x: hidden;
-        border-radius: 0.2rem;
     }
 
     &__score {
-        margin: 0;
-        padding: 0 0.3rem;
         display: grid;
         grid-template-columns: 20px 65px 60px 50px;
+        margin: 0;
+        padding: 0 0.3rem;
     }
 
     &__name {
@@ -42,12 +42,12 @@
 
 .winPopup {
     position: absolute;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 1;
 }

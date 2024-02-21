@@ -4,6 +4,8 @@ Tenzi is a simple game to set all dice the same
 
 ### [PLAY](https://rhalupczok.github.io/Tenzies/)
 
+![Screenshot](https://github.com/rhalupczok/Portfolio/blob/master/src/images/myWork/my-work-tenzi.png)
+
 -   FrontEnd: React with TypeScript and SASS modules
 -   Backend: Express.js
 -   Authentication: Complete process using JWT
@@ -11,7 +13,7 @@ Tenzi is a simple game to set all dice the same
 
 ### Simplified diagram of the application's operation
 
-![Screenshot](https://github.com/rhalupczok/Portfolio/blob/master/src/images/myWork/my-work-tenzi.png)
+![Screenshot](https://github.com/rhalupczok/Portfolio/blob/master/src/images/tenziDescription/mainDiagram.png)
 
 ### Simplified diagram of server's operation
 

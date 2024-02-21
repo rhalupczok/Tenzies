@@ -4,6 +4,8 @@ Tenzi is a simple game to set all dice the same
 
 ### [PLAY](https://rhalupczok.github.io/Tenzies/)
 
+### [Server repository](https://github.com/rhalupczok/TenziServer)
+
 -   FrontEnd: React with TypeScript and SASS modules
 -   Backend: Express.js
 -   Authentication: Complete process using JWT

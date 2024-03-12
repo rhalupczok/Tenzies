@@ -16,7 +16,7 @@ const WinPopup: FC = () => {
     }
 
     return (
-        <>
+        <section>
             <h1 className={style.winPopup__header}>SUCCESS {player.name}!</h1>
             <p className={style.winPopup__paragraph}>
                 Your time is:{" "}
@@ -32,7 +32,7 @@ const WinPopup: FC = () => {
                         : player.score.fouls}
                 </span>
             </p>
-        </>
+        </section>
     );
 };
 

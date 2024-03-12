@@ -73,7 +73,7 @@ const Login: FC = () => {
 
     const handleDemo: () => void = () => {
         setAuth({
-            user: "demo",
+            user: "",
             roles: [2000],
             accessToken: "",
         });

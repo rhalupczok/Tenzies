@@ -44,6 +44,7 @@ const Scoretable: FC = () => {
     }, [player.score.time]);
 
     useEffect(() => {
+        if (!auth.user) return;
         let isMounted = true;
         const controller = new AbortController();
 

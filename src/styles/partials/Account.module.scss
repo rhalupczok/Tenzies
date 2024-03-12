@@ -77,7 +77,13 @@
             cursor: pointer;
         }
 
-        &_button:hover {
+        &_button:disabled {
+            background: #422b4b;
+            color: rgb(145, 145, 145);
+            cursor: auto;
+        }
+
+        &_button:not(:disabled):hover {
             box-shadow: 0 0 5px #480064;
         }
     }

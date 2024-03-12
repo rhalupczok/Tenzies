@@ -7,7 +7,6 @@ import StyleSelector from "./StyleSelector";
 import Scoretable from "./ScoreTable";
 import WinPopup from "./WinPopup";
 import { nanoid } from "nanoid";
-import Confetti from "react-confetti";
 import { dice } from "../data/interfaces";
 import usePlayerInfo from "../hooks/usePlayerInfo";
 import useAuth from "../hooks/useAuth";
@@ -106,12 +105,12 @@ const Game: FC = () => {
         const main = document.querySelector("main");
 
         if (text && main) {
-            text.innerHTML = "MISS!!";
+            text.innerHTML = "<h1>MISS!!</h1>";
             main.classList.add("jsMissedDice");
         }
         setTimeout(() => {
             if (text && main) {
-                text.innerHTML = "TENZI";
+                text.innerHTML = "<h1>Tenzi</h1>";
                 main.classList.remove("jsMissedDice");
             }
         }, 500);
@@ -145,7 +144,6 @@ const Game: FC = () => {
             {player.win && (
                 //display confetti and winPopup container when player win (property win is changed in first useEffect on the top of App.tsx)
                 <div className={style.game__winPopup}>
-                    <Confetti />
                     <WinPopup />
                     <button className="btn" onClick={playGame}>
                         Play Again

@@ -95,7 +95,7 @@ const Register: FC = () => {
             <header className={style.authorization__header}>
                 <h1>Tenzi</h1>
             </header>
-            {!success ? (
+            {success ? (
                 <article className={style.authorization__authStatus}>
                     <FontAwesomeIcon icon={faCheck} />
                     <h2>Success!</h2>
@@ -193,6 +193,7 @@ const Register: FC = () => {
                         <input
                             className={style.form__input}
                             type="password"
+                            autoComplete="off"
                             id="password"
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
@@ -249,6 +250,7 @@ const Register: FC = () => {
                         <input
                             className={style.form__input}
                             type="password"
+                            autoComplete="off"
                             id="confirm_pwd"
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}

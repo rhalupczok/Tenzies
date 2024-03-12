@@ -77,7 +77,6 @@ const Login: FC = () => {
             roles: [2000],
             accessToken: "",
         });
-        console.log(auth);
         navigate("/");
     };
 
@@ -124,6 +123,7 @@ const Login: FC = () => {
                 <input
                     className={style.form__input}
                     type="password"
+                    autoComplete="off"
                     id="password"
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}

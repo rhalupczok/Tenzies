@@ -102,19 +102,17 @@ const Game: FC = () => {
 
     //visual effect when player miss the dice - red background and change title word for a 0,5s
     const missedDice = () => {
-        const text = document.querySelector(".title");
-        const body = document.querySelector("body");
+        const text = document.querySelector(`.${style.game__header}`);
+        const main = document.querySelector("main");
 
-        if (text && body) {
+        if (text && main) {
             text.innerHTML = "MISS!!";
-            text.classList.add("missed-dice-text");
-            body.classList.add("missed-dice-bg");
+            main.classList.add("jsMissedDice");
         }
         setTimeout(() => {
-            if (text && body) {
+            if (text && main) {
                 text.innerHTML = "TENZI";
-                text.classList.remove("missed-dice-text");
-                body.classList.remove("missed-dice-bg");
+                main.classList.remove("jsMissedDice");
             }
         }, 500);
     };

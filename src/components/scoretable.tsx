@@ -21,7 +21,13 @@ const Scoretable: FC = () => {
     const [scoresArr, setScoresArr] = useState<scoresArr[]>([]);
 
     useEffect(() => {
-        if (!player.win || !player.saveScore || player.score.time === 0) return;
+        if (
+            !auth.user ||
+            !player.win ||
+            !player.saveScore ||
+            player.score.time === 0
+        )
+            return;
         let isMounted = true;
         const controller = new AbortController();
         const updateDataBase = async () => {
